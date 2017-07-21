@@ -1,33 +1,12 @@
 @media screen {
-  /* --- Reset Styles --- */
-  * {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
 
   html, body {
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
   }
 
-  /* --- Welcome Page Styles --- */
   body {
-    background-color: lightblue;
-    color: #333;
-    font-family: Sans-Serif;
-    line-height: 18px;
-  }
-
-  .wrapper {
-    background: #fff;
-    -moz-box-shadow: 0 0 10px rgba(0,0,0,.3);
-    -webkit-box-shadow: 0 0 10px rgba(0,0,0,.3);
-    box-shadow: 0 0 10px rgba(0,0,0,.3);
-    margin: 16px auto;
-    max-width: 960px;
-    padding: 2.25%; /* 18px / 800px */
-    width: 85%;
+    background-color: hsl(191, 66%, 60%);
   }
 
   h1 {
@@ -51,65 +30,57 @@
     margin-bottom: 18px;
   }
 
-  .main {
-    overflow: hidden;
+  .board-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  .content {
-    float: left;
-    width: 60%; /* 480px / 800px */
+  .board {
+    padding: 1rem;
+    border-radius: 1.5rem;
+    background: hsl(191, 33%, 90%);
+    width: 33vh;
+    height: 33vh;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 1rem;
   }
 
-  .sidebar {
-    background: #eee;
-    border: 1px solid #ccc;
-    float: right;
-    padding: 2.08333333333%; /* 5px / 240px */
-    width: 30%; /* 240px / 800px */
+  .cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    line-height: 0;
+    background: hsl(191, 33%, 75%);
+    border-radius: 1rem;
   }
 
-  .sidebar ul {
-    font-size: 14px;
+  .cell img {
+    height: 66%;
+    width: 66%;
   }
 
-  .branding {
-    clear: both;
+  .cell a {
+    border-radius: .5rem;
+    width: 66%;
+    height: 66%;
+    transition: .5s;
+    opacity: 0;
   }
 
-  footer.branding {
-    border-top: 2px solid #ccc;
-    margin-top: 20px;
-    padding-top: 20px;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .wrapper {
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    width: auto;
-  }
-
-  .content, .sidebar {
-    float: none;
+  .cell a img {
+    height: 100%;
     width: 100%;
   }
 
-  .sidebar {
-    background: transparent;
-    border: none;
-    border-top: 2px solid #ccc;
-    padding: 0;
+  .cell a:hover {
+    opacity: .33;
   }
 
-  h1 {
-    font-size: 24px;
-    line-height: 36px;
-  }
-
-  h2 {
-    font-size: 18px;
-    line-height: 24px;
-  }
 }
