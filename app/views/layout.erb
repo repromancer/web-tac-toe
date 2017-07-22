@@ -39,7 +39,9 @@
   <% end %>
 
   <% if flash.has?(:message) %>
-    <p class="message"><%= flash[:message] %></p>
+    <div class="message">
+      <span><%= flash[:message] %></span>
+    </div>
   <% end %>
 
   <%= yield %>

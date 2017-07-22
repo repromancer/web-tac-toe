@@ -17,7 +17,7 @@ module AuthenticationUtils
       flash[:message] = "Welcome, #{user.username}!"
       block_given? ? yield : redirect("/users/#{current_user.id}")
     else
-      flash[:message] = "Sorry. Incorrect login information."
+      flash[:message] = "Sorry! Invalid username or password. :("
       redirect '/'
     end
 

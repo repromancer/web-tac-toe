@@ -85,12 +85,11 @@ p {
 
 .message {
   color: hsl(12, 66%, 60%);
-  text-align: center;
-  width: 33%;
+  width: fit-content;
   background: hsl(191, 33%, 90%);
-  padding: .5rem;
+  padding: .5rem .75rem;
   border-radius: .75rem;
-  margin-top: 1rem;
+  margin: 1rem auto;
 }
 
 form {
