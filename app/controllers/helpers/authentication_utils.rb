@@ -15,7 +15,7 @@ module AuthenticationUtils
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       flash[:message] = "Welcome, #{user.username}!"
-      block_given? ? yield : redirect("/users/#{current_user.id}")
+      block_given? ? yield : redirect("/users/#{current_user.slug}")
     else
       flash[:message] = "Sorry! Invalid username or password. :("
       redirect '/'
