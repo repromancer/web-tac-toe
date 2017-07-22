@@ -14,4 +14,12 @@ class User < ActiveRecord::Base
   has_many :sent_invites, class_name: 'Invite',
     foreign_key: :sender_id, inverse_of: :sender
 
+
+  validates :username, presence: true, uniqueness: true, length: { minimum: 4, maximum: 32 }
+
+  has_secure_password
+
+  validates :password, presence: true, confirmation: true
+  validates :password_confirmation, presence: true
+
 end
