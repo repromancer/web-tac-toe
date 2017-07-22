@@ -6,6 +6,8 @@ class Game < ActiveRecord::Base
   belongs_to :winner, class_name: 'User'
   belongs_to :loser, class_name: 'User'
 
+
+
   def player_1
     @p1 ||= players.first
   end
@@ -18,6 +20,20 @@ class Game < ActiveRecord::Base
     board.turn_count.even? ? player_1 : player_2
   end
 
+  def cells
+    board.split ''
+  end
+
+  def cell_taken?(index)
+    cell = cells[index]
+    cell == '1' || cell == '2'
+  end
+
+  def cell_taken_by?(index)
+    player_1 if cells[index] == '1'
+    player_2 if cells[index] == '2'
+  def
+
   # WIN_COMBINATIONS = [
   #   [0,1,2],
   #   [3,4,5],
@@ -28,13 +44,6 @@ class Game < ActiveRecord::Base
   #   [0,4,8],
   #   [6,4,2]
   # ]
-
-
-  # def opposing_player
-  #   board.turn_count.odd? ? player_1 : player_2
-  # end
-
-
 
   # def won?
   #   WIN_COMBINATIONS.detect do |combo|
