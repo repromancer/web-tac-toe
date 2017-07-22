@@ -13,7 +13,6 @@ module AuthenticationUtils
     user = User.find_by(username: params[:username])
 
     if user && user.authenticate(params[:password])
-      # binding.pry
       session[:user_id] = user.id
       flash[:message] = "Welcome, #{user.username}!"
       yield if block_given?
@@ -29,22 +28,11 @@ module AuthenticationUtils
   end
 
   def screen_unauthorized_users
-    binding.pry
     unless logged_in?
       flash[:message] = "Please log in."
       redirect '/'
     end
   end
-
-  # def if_logged_in
-  #   if logged_in?
-  #     yield
-  #   else
-  #     flash[:message] = "Please log in."
-  #     redirect '/login'
-  #   end
-  # end
-
 
   def logout
     session.clear
@@ -55,8 +43,6 @@ module AuthenticationUtils
       user.username = params[:username]
       user.password = params[:password]
       user.password_confirmation = params[:password_confirmation]
-
-      # binding.pry
 
       if user.save
         login(params){yield if block_given?}

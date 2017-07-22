@@ -17,12 +17,8 @@ class GamesController < ApplicationController
 
   # GET: /games/5
   get "/games/:id" do
+    @cells = ['0','1','0','1','2','0','1','1','2']
     erb :"/games/show.html"
-  end
-
-  # GET: /games/5/edit
-  get "/games/:id/edit" do
-    erb :"/games/edit.html"
   end
 
   # PATCH: /games/5
