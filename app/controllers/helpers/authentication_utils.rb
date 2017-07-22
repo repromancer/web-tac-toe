@@ -15,7 +15,7 @@ module AuthenticationUtils
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       flash[:message] = "Welcome, #{user.username}!"
-      yield if block_given?
+      block_given? ? yield : redirect("/users/#{current_user.id}")
     else
       flash[:message] = "Sorry. Incorrect login information."
       redirect '/'
@@ -36,6 +36,11 @@ module AuthenticationUtils
 
   def logout
     session.clear
+    if block_given?
+      yield
+    else
+      redirect "/"
+    end
   end
 
   def signup(params)
@@ -45,7 +50,7 @@ module AuthenticationUtils
       user.password_confirmation = params[:password_confirmation]
 
       if user.save
-        login(params){yield if block_given?}
+        block_given? ? login(params){yield} : login(params)
       else
         flash[:message] = "Please fill out every field."
         redirect '/signup'
