@@ -6,6 +6,18 @@ class Game < ActiveRecord::Base
   belongs_to :winner, class_name: 'User'
   belongs_to :loser, class_name: 'User'
 
+  def player_1
+    @p1 ||= players.first
+  end
+
+  def player_2
+    @p2 ||= players.last
+  end
+
+  def current_player
+    board.turn_count.even? ? player_1 : player_2
+  end
+
   # WIN_COMBINATIONS = [
   #   [0,1,2],
   #   [3,4,5],
@@ -17,21 +29,6 @@ class Game < ActiveRecord::Base
   #   [6,4,2]
   # ]
 
-  # def initialize(p1 = Players::Human.new("X"), p2 = Players::Human.new("O"), play_board = Board.new)
-
-  #   @board = play_board
-
-  #   @player_1 = p1
-
-  #   @player_2 = p2
-
-  # end
-
-
-
-  # def current_player
-  #   board.turn_count.even? ? player_1 : player_2
-  # end
 
   # def opposing_player
   #   board.turn_count.odd? ? player_1 : player_2
