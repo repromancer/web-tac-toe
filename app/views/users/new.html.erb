@@ -1,1 +1,12 @@
-<h1>Insert the form to create a new instance of your model.</h1>
+<div class="signup controls">
+  <form method="post" action="/signup">
+
+    <input type="text" name="username" placeholder="username">
+    <input type="password" name="password" placeholder="password">
+    <input type="password" name="password_confirmation" placeholder="confirm password">
+    <input type="submit" value="Sign Up">
+
+    <%# if signup errors, display here %>
+
+  </form>
+</div>

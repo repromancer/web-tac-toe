@@ -14,6 +14,34 @@
   <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
 </head>
 <body>
+
+  <% unless request.path_info == "/signup" %>
+
+    <% if logged_in? %>
+      <div class="logout controls">
+        <form method="get" action="/logout">
+          <input type="submit" value="Log Out">
+        </form>
+      </div>
+    <% else %>
+      <div class="login controls">
+        <form method="post" action="/login">
+          <input type="text" name="username" placeholder="username">
+          <input type="password" name="password" placeholder="password">
+          <input type="submit" value="Log In">
+        </form>
+        <form method="get" action="/signup">
+          <input type="submit" value="Sign Up">
+        </form>
+      </div>
+    <% end %>
+
+  <% end %>
+
+  <% if flash.has?(:message) %>
+    <p class="message"><%= flash[:message] %></p>
+  <% end %>
+
   <%= yield %>
 
   <%# <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> %>
