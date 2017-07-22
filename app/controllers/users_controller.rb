@@ -5,9 +5,11 @@ class UsersController < ApplicationController
   # end
 
   post "/login" do
-    login(params) do
-      redirect "/users/#{current_user.id}"
-    end
+    login(params)
+  end
+
+  get "/logout" do
+    logout
   end
 
   get "/signup" do
@@ -15,10 +17,7 @@ class UsersController < ApplicationController
   end
 
   post "/signup" do
-    signup(params) do
-      binding.pry
-      redirect "/users/#{current_user.id}"
-    end
+    signup(params)
   end
 
   get "/users/:id" do
