@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
   get "/users/:slug" do
     @user = User.find_by_slug(params[:slug])
-    @games = @user.games.reject(&:complete?)
+    @games = @user.games
     @kd_ratio = if @user.lost_games.any?
       @user.won_games.size.to_f / @user.lost_games.size
     else

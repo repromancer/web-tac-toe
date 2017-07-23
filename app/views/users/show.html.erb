@@ -5,7 +5,7 @@
     <h2>Curent Games</h2>
     <div class="grid">
       <%### ongoing games displayed graphically on a grid %>
-      <% @games.each do |game|%>
+      <% @games.reject(&:complete?).each do |game|%>
         <div class="board">
           <% game.cells.each do |cell| %>
             <% if cell == "1" %>
@@ -42,7 +42,7 @@
               <span>Wins: <%=
                   user.lost_games.select{|game| game.players.include?(@user)}.size%> / Losses: <%=
                   user.won_games.select{|game| game.players.include?(@user)}.size%>
-            </span>
+              </span>
 
             </a>
           </li>
