@@ -80,7 +80,6 @@ p {
   justify-content: center;
   align-items: center;
   height: 100%;
-
 }
 
 .message {
@@ -92,7 +91,7 @@ p {
   margin: 1rem auto;
 }
 
-form {
+.controls form {
   width: fit-content;
   background: hsl(191, 33%, 90%);
   padding: .5rem;
@@ -101,7 +100,7 @@ form {
   margin-left: 1rem;
 }
 
-input {
+.controls input {
   padding: .5rem .75rem;
   border: none;
   border-radius: .5rem;
@@ -135,15 +134,15 @@ input[type=submit]:hover {
 }
 
 .board {
-  padding: 1rem;
-  border-radius: 1.5rem;
+  padding: 2vh;
+  border-radius: 3vh;
   background: hsl(191, 33%, 90%);
   width: 33vh;
   height: 33vh;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  grid-gap: 1rem;
+  grid-gap: 2vh;
 }
 
 .cell {
@@ -154,27 +153,20 @@ input[type=submit]:hover {
   width: 100%;
   line-height: 0;
   background: hsl(191, 33%, 75%);
-  border-radius: 1rem;
+  border-radius: 1.5vh;
 }
 
-.cell img {
+.cell > img, .cell > input {
   height: 66%;
   width: 66%;
 }
 
-.cell a {
+.cell > input {
   border-radius: .5rem;
-  width: 66%;
-  height: 66%;
   transition: .5s;
   opacity: 0;
 }
 
-.cell a img {
-  height: 100%;
-  width: 100%;
-}
-
-.cell a:hover {
+.cell > input:hover {
   opacity: .33;
 }

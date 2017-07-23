@@ -1,28 +1,54 @@
 <div class="board-wrapper">
 
-  <div class="board">
-    <%# probably use each.with_index to
-      determine target for empty cell buttons%>
-    <% @cells.each do |cell| %>
+  <% binding.pry %>
 
-      <% if cell == "1" %>
-        <div class="cell">
-          <img src="/images/x.svg">
-        </div>
-      <% elsif cell == "2" %>
-        <div class="cell">
-          <img src="/images/o.svg">
-        </div>
-      <% else %>
-        <div class="cell">
-          <a href="#">
-            <%# current player token %>
+  <%# wrap board in form tags for current player %>
+  <% if @game.current_player == current_user %>
+    <form method="post">
+      <input type="hidden" id="hidden" name="_method" value="patch">
+  <% end %>
+  <%#%>
+
+    <div class="board">
+
+      <% @game.cells.each_with_index do |cell, cell_index| %>
+
+        <% if cell == "1" %>
+
+          <div class="cell">
             <img src="/images/x.svg">
-          </a>
-        </div>
+          </div>
+
+        <% elsif cell == "2" %>
+
+          <div class="cell">
+            <img src="/images/o.svg">
+          </div>
+
+        <% else %>
+
+          <%# display blank empty cell by default %>
+          <div class="cell">
+            <%# display interactive empty cells for current player %>
+            <% if @game.current_player == current_user %>
+              <input type="image"
+                src="/images/<%= @game.current_player_token == '1' ? 'x' : 'o' %>.svg"
+                formaction="/games/<%=@game.id%>/<%=cell_index%>">
+            <% end %>
+            <%#%>
+          </div>
+          <%#%>
+
+        <% end %>
+
       <% end %>
 
-    <% end %>
-  </div>
+    </div>
+
+  <%#%>
+  <% if @game.current_player == current_user %>
+    </form>
+  <% end %>
+  <%# wrap board in form tags for current player %>
 
 </div>
