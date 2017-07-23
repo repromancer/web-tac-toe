@@ -23,6 +23,12 @@ class Game < ActiveRecord::Base
     @p2 ||= players.last
   end
 
+  def turn_count
+    # count how many 1's and 2's
+    # occur in the Game.board string
+    board.count '12'
+  end
+
   def current_player
     board.turn_count.even? ? player_1 : player_2
   end
