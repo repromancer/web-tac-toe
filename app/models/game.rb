@@ -32,7 +32,7 @@ class Game < ActiveRecord::Base
     unless board[index] == '0'
       board[index] == '1' ? player_1 : player_2
     end
-  def
+  end
 
   def place_token(index)
     board[index] = current_player == player_1 ? '1' : '2'
