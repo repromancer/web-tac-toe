@@ -17,11 +17,11 @@ class Game < ActiveRecord::Base
 
 
   def player_1
-    @p1 ||= players.first
+    @player_1 ||= players.first
   end
 
   def player_2
-    @p2 ||= players.last
+    @player_2 ||= players.last
   end
 
   def turn_count
