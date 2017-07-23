@@ -11,7 +11,16 @@ class Game < ActiveRecord::Base
   after_initialize :initialize_board
 
   def initialize_board
+    # game boards are stored as a string,
+    # e.g. '001000210', where:
+    # '0' = empty space
+    # '1' = space occupied by player_1
+    # '2' = space occupied by player_2
     self.board ||= ('0')*9
+  end
+
+  def cells
+    board.chars
   end
 
 
@@ -28,9 +37,12 @@ class Game < ActiveRecord::Base
     player_1 == player_2
   end
 
+
+
   def turn_count
     # count how many 1's and 2's
     # occur in the Game.board string
+    # '010220000' turn_count #=> 3
     board.count '12'
   end
 
@@ -42,26 +54,44 @@ class Game < ActiveRecord::Base
     turn_count.even? ? '1' : '2'
   end
 
-  def cells
-    board.chars
-  end
-
-  def cell_taken?(index)
-    board[index] == '1' || board[index] == '2'
-  end
-
-  def cell_taken_by?(index)
-    unless board[index] == '0'
-      board[index] == '1' ? player_1 : player_2
-    end
-  end
-
   def place_token(index)
     unless cell_taken?(index)
       board[index] = current_player_token
       save
     end
   end
+
+
+
+  def board_full?
+    turn_count == 9
+  end
+
+  def won?
+    winner || loser
+  end
+
+  def tie?
+    board_full? && !won?
+  end
+
+  def complete?
+    won? || tie?
+  end
+
+
+
+  # def cell_taken?(index)
+  #   board[index] == '1' || board[index] == '2'
+  # end
+
+  # def cell_taken_by?(index)
+  #   unless board[index] == '0'
+  #     board[index] == '1' ? player_1 : player_2
+  #   end
+  # end
+
+
 
 
   # WIN_COMBINATIONS = [
