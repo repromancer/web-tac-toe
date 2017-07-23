@@ -25,8 +25,7 @@ class Game < ActiveRecord::Base
   end
 
   def vs_computer?
-    false # CHANGE ME
-    # !!(player_1.class == Computer)
+    player_1 == player_2
   end
 
   def turn_count
