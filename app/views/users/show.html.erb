@@ -35,15 +35,16 @@
       <ul>
         <% @opponents.each do |user| %>
           <li>
-            <span>
-              <%= user.username %>
+            <a href="/users/<%= user.slug %>">
+
+              <span><%= user.username %></span>
+
+              <span>Wins: <%=
+                  user.lost_games.select{|game| game.players.include?(@user)}.size%> / Losses: <%=
+                  user.won_games.select{|game| game.players.include?(@user)}.size%>
             </span>
 
-            <span>
-              Wins/Losses:
-              <%= user.lost_games.select{|game| game.players.include?(@user)}.size%> /
-              <%= user.won_games.select{|game| game.players.include?(@user)}.size%>
-            </span>
+            </a>
           </li>
         <% end %>
       </ul>
