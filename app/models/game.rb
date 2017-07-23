@@ -54,8 +54,12 @@ class Game < ActiveRecord::Base
     turn_count.even? ? '1' : '2'
   end
 
+  def cell_taken?(index)
+    board[index] == '1' || board[index] == '2'
+  end
+
   def place_token(index)
-    unless cell_taken?(index)
+    unless !(0..8).include?(index) || cell_taken?(index)
       board[index] = current_player_token
       save
     end
@@ -81,9 +85,7 @@ class Game < ActiveRecord::Base
 
 
 
-  # def cell_taken?(index)
-  #   board[index] == '1' || board[index] == '2'
-  # end
+
 
   # def cell_taken_by?(index)
   #   unless board[index] == '0'
