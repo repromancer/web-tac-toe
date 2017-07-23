@@ -6,6 +6,13 @@ class Game < ActiveRecord::Base
   belongs_to :winner, class_name: 'User'
   belongs_to :loser, class_name: 'User'
 
+  validates :board, presence: true, format: { with: /\A[012]{9}\z/, message: "must be a 9-character string consisting of digits 0-2" }
+
+  after_initialize :initialize_board
+
+  def initialize_board
+    self.board ||= ('0')*9
+  end
 
 
   def player_1
