@@ -15,6 +15,7 @@ class Game < ActiveRecord::Base
   end
 
 
+
   def player_1
     @p1 ||= players.first
   end
@@ -30,7 +31,11 @@ class Game < ActiveRecord::Base
   end
 
   def current_player
-    board.turn_count.even? ? player_1 : player_2
+    turn_count.even? ? player_1 : player_2
+  end
+
+  def current_player_token
+    turn_count.even? ? '1' : '2'
   end
 
   def cells
@@ -48,8 +53,10 @@ class Game < ActiveRecord::Base
   end
 
   def place_token(index)
-    board[index] = current_player == player_1 ? '1' : '2'
-    save
+    unless cell_taken?(index)
+      board[index] = current_player_token
+      save
+    end
   end
 
 
