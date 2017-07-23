@@ -28,11 +28,15 @@
   </div>
 
   <div class="stats">
-    <h2>K/D Ratio: <%= @kd_ratio %>
-    </h2>
+    <h2>Game History</h2>
+    <h3>Play/Loss Ratio: <%= @kd_ratio %></h3>
     <div class="roster">
-      <h2>Opponents</h2>
       <ul>
+        <li class="roster_legend">
+          <span>Against</span>
+          <span>/</span>
+          <span>Results</span>
+        </li>
         <% @opponents.each do |user| %>
           <li>
             <a href="/users/<%= user.slug %>">

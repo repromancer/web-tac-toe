@@ -29,7 +29,6 @@ $quote:         hsl(191, 33%, 75%);
   padding: 0;
   margin: 0;
   font-family: 'Rubik', sans-serif;
-  font-size: 1rem;
   text-transform: uppercase;
 }
 
@@ -42,25 +41,9 @@ body {
   background-color: hsl(191, 66%, 60%);
 }
 
-h1 {
-  font-size: 36px;
-  line-height: 54px;
-}
-
-h2 {
-  border-bottom: 2px solid #ccc;
-  font-size: 24px;
-  line-height: 36px;
-  margin-bottom: 16px;
-}
-
-h3 {
-  font-size: 18px;
-  line-height: 36px;
-}
-
-p {
-  margin-bottom: 18px;
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .controls {
@@ -101,6 +84,7 @@ p {
 }
 
 .controls input {
+  font-size: 1rem;
   padding: .5rem .75rem;
   border: none;
   border-radius: .5rem;
@@ -169,4 +153,135 @@ input[type=submit]:hover {
 
 .cell > input:hover {
   opacity: .33;
+}
+
+
+
+
+.profile {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.profile h1, .profile h2, .profile h3 {
+  background: hsl(191, 33%, 90%);
+  padding: .5rem .75rem;
+  border-radius: .75rem;
+  margin: 1rem;
+  text-align: center;
+}
+
+.profile h1 {
+  flex-basis: 100%;
+  font-size: 2.5rem;
+}
+
+.profile h2 {
+  flex-basis: 100%;
+  font-size: 2rem;
+}
+
+.stats > h3 {
+  font-size: 1.5rem;
+  width: fit-content;
+}
+
+.games, .stats {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  justify-content: center;
+  flex-basis: 33%;
+  flex-grow: 1;
+  margin: 1rem;
+}
+
+.games {
+  justify-content: center;
+}
+
+.grid {
+  display: grid;
+  width: fit-content;
+
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+  align-content: center;
+  margin: 1rem;
+}
+
+.grid .board {
+  height: 16.6vh;
+  width: 16.6vh;
+  transition: background .5s;
+}
+
+.grid .board:hover {
+  cursor: pointer;
+  background: hsl(191, 16%, 100%);
+  transition: background 0s;
+}
+
+/* .board {
+  padding: 2vh;
+  border-radius: 3vh;
+  background: hsl(191, 33%, 90%);
+  width: 33vh;
+  height: 33vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 2vh;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  line-height: 0;
+  background: hsl(191, 33%, 75%);
+  border-radius: 1.5vh;
+} */
+
+
+.roster {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+
+
+.roster ul {
+  display: flex;
+  flex-flow: column nowrap;
+  list-style: none;
+  width: 100%;
+}
+
+.roster li a, .roster_legend {
+  background: hsl(191, 33%, 90%);
+  padding: .5rem;
+  border-radius: .75rem;
+  margin: 1rem;
+  font-size: 1.25rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  transition: background .5s;
+}
+
+.roster li a:hover {
+  cursor: pointer;
+  background: hsl(191, 16%, 100%);
+  transition: background 0s;
+}
+
+.roster_legend {
+  font-size: 1.5rem;
 }
