@@ -1,33 +1,29 @@
 class GamesController < ApplicationController
 
-  # GET: /games
-  get "/games" do
-    erb :"/games/index.html"
-  end
+  # get "/games/new" do
+  #   erb :"/games/new.html"
+  # end
 
-  # GET: /games/new
-  get "/games/new" do
-    erb :"/games/new.html"
-  end
+  # post "/games" do
+  #   redirect "/games"
+  # end
 
-  # POST: /games
-  post "/games" do
-    redirect "/games"
-  end
-
-  # GET: /games/5
   get "/games/:id" do
-    @cells = ['0','1','0','1','2','0','1','1','2']
+    @game = Game.find(params[:id])
+
+    # if @game.type = 'computer_v_user'
+      # if it's the computer's turn, let it go
+      # before displaying the board
+    # end
+
     erb :"/games/show.html"
   end
 
-  # PATCH: /games/5
-  patch "/games/:id" do
-    redirect "/games/:id"
+  patch "/games/:id/board" do
+    unless Game.find(params[:id]).place_token(params[:cell])
+      flash[:message] = "That cell is already taken."
+    end
+    redirect "/games/#{params[:id]}"
   end
 
-  # DELETE: /games/5/delete
-  delete "/games/:id/delete" do
-    redirect "/games"
-  end
 end
