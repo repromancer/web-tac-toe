@@ -22,6 +22,23 @@ class UsersController < ApplicationController
 
   get "/users/:slug" do
     @user = User.find_by_slug(params[:slug])
+    @games = @user.games.reject(&:complete?)
+    @kd_ratio = if @user.lost_games.any?
+      @user.won_games.size / @user.lost_games.size
+    else
+      @user.won_games.size
+    end
+
+    @opponents = @games.collect do |game|
+      unless game.vs_computer?
+        if game.player_1 == @user
+          game.player_2
+        else
+          game.player_1
+        end
+      end
+    end.uniq.compact
+
     erb :"/users/show.html"
   end
 

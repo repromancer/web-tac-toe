@@ -1,1 +1,52 @@
-<h1>Showing <%= @user.username %>'s Account! :)</h1>
+<div class="profile">
+  <h1><%= @user.username %></h1>
+
+  <div class="games">
+    <h2>Curent Games</h2>
+    <div class="grid">
+      <%### ongoing games displayed graphically on a grid %>
+      <% @games.each do |game|%>
+        <div class="board">
+          <% game.cells.each do |cell| %>
+            <% if cell == "1" %>
+              <div class="cell">
+                <img src="/images/x.svg">
+              </div>
+            <% elsif cell == "2" %>
+              <div class="cell">
+                <img src="/images/o.svg">
+              </div>
+            <% else %>
+              <div class="cell">
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+      <%###%>
+    </div>
+  </div>
+
+  <div class="stats">
+    <h2>K/D Ratio: <%= @kd_ratio %>
+    </h2>
+    <div class="roster">
+      <h2>Opponents</h2>
+      <ul>
+        <% @opponents.each do |user| %>
+          <li>
+            <span>
+              <%= user.username %>
+            </span>
+
+            <span>
+              Wins/Losses:
+              <%= user.lost_games.select{|game| game.players.include?(@user)}.size%> /
+              <%= user.won_games.select{|game| game.players.include?(@user)}.size%>
+            </span>
+          </li>
+        <% end %>
+      </ul>
+  </div>
+
+</div>
