@@ -1,11 +1,11 @@
 <div class="board-wrapper">
 
-  <% binding.pry %>
-
   <%# wrap board in form tags for current player %>
   <% if @game.current_player == current_user %>
-    <form method="post">
-      <input type="hidden" id="hidden" name="_method" value="patch">
+    <% unless @game.vs_computer && current_player_token == '1' %>
+      <form method="post">
+        <input type="hidden" id="hidden" name="_method" value="patch">
+    <% end %>
   <% end %>
   <%#%>
 
@@ -31,9 +31,11 @@
           <div class="cell">
             <%# display interactive empty cells for current player %>
             <% if @game.current_player == current_user %>
-              <input type="image"
-                src="/images/<%= @game.current_player_token == '1' ? 'x' : 'o' %>.svg"
-                formaction="/games/<%=@game.id%>/<%=cell_index%>">
+              <% unless @game.vs_computer && current_player_token == '1' %>
+                <input type="image"
+                  src="/images/<%= @game.current_player_token == '1' ? 'x' : 'o' %>.svg"
+                  formaction="/games/<%=@game.id%>/<%=cell_index%>">
+              <% end %>
             <% end %>
             <%#%>
           </div>
@@ -47,7 +49,9 @@
 
   <%#%>
   <% if @game.current_player == current_user %>
-    </form>
+    <% unless @game.vs_computer && current_player_token == '1' %>
+      </form>
+    <% end %>
   <% end %>
   <%# wrap board in form tags for current player %>
 
