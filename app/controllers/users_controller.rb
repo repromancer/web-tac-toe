@@ -24,10 +24,10 @@ class UsersController < ApplicationController
     @user = User.find_by_slug(params[:slug])
     @games = @user.games.reject(&:complete?)
     @kd_ratio = if @user.lost_games.any?
-      @user.won_games.size / @user.lost_games.size
+      @user.won_games.size.to_f / @user.lost_games.size
     else
       @user.won_games.size
-    end
+    end.round(1)
 
     @opponents = @games.collect do |game|
       unless game.vs_computer?
