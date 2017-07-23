@@ -82,7 +82,7 @@ p {
   height: 100%;
 }
 
-.message {
+.flash_message {
   color: hsl(12, 66%, 60%);
   width: fit-content;
   background: hsl(191, 33%, 90%);
