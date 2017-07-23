@@ -19,9 +19,9 @@ class GamesController < ApplicationController
     erb :"/games/show.html"
   end
 
-  patch "/games/:id/board" do
-    unless Game.find(params[:id]).place_token(params[:cell])
-      flash[:message] = "That cell is already taken."
+  patch "/games/:id/:cell" do
+    unless Game.find(params[:id]).place_token(params[:cell].to_i)
+      flash[:message] = "Sorry! That cell is already taken. :("
     end
     redirect "/games/#{params[:id]}"
   end
