@@ -24,6 +24,11 @@ class Game < ActiveRecord::Base
     @player_2 ||= players.last
   end
 
+  def vs_computer?
+    false # CHANGE ME
+    # !!(player_1.class == Computer)
+  end
+
   def turn_count
     # count how many 1's and 2's
     # occur in the Game.board string

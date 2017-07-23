@@ -11,10 +11,10 @@ class GamesController < ApplicationController
   get "/games/:id" do
     @game = Game.find(params[:id])
 
-    # if @game.type = 'computer_v_user'
+    if @game.vs_computer?
       # if it's the computer's turn, let it go
       # before displaying the board
-    # end
+    end
 
     erb :"/games/show.html"
   end
