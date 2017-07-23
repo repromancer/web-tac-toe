@@ -21,18 +21,24 @@ class Game < ActiveRecord::Base
   end
 
   def cells
-    board.split ''
+    board.chars
   end
 
   def cell_taken?(index)
-    cell = cells[index]
-    cell == '1' || cell == '2'
+    board[index] == '1' || board[index] == '2'
   end
 
   def cell_taken_by?(index)
-    player_1 if cells[index] == '1'
-    player_2 if cells[index] == '2'
+    unless board[index] == '0'
+      board[index] == '1' ? player_1 : player_2
+    end
   def
+
+  def place_token(index)
+    board[index] = current_player == player_1 ? '1' : '2'
+    save
+  end
+
 
   # WIN_COMBINATIONS = [
   #   [0,1,2],
