@@ -6,7 +6,7 @@
     <div class="grid">
       <%### ongoing games displayed graphically on a grid %>
       <% @games.reject(&:complete?).each do |game|%>
-        <div class="board">
+        <a class="board" href="/games/<%= game.id %>">
           <% game.cells.each do |cell| %>
             <% if cell == "1" %>
               <div class="cell">
@@ -21,7 +21,7 @@
               </div>
             <% end %>
           <% end %>
-        </div>
+        </a>
       <% end %>
       <%###%>
     </div>
