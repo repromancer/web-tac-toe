@@ -16,12 +16,21 @@ class ApplicationController < Sinatra::Base
 
   helpers AuthenticationUtils
 
-  before /\/(?!signup|login).+/ do
+  before /\/(?!signup|login|clickbait).+/ do
     screen_unauthorized_users
   end
 
   get "/" do
-    erb :'index.html'
+    if logged_in?
+      redirect "/users/#{current_user.slug}"
+    else
+      erb :'index.html'
+    end
+  end
+
+  get "/clickbait" do
+    flash[:message] = "Please sign up to play! :)"
+    redirect '/signup'
   end
 
 end

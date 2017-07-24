@@ -1,0 +1,28 @@
+<div class="wrapper">
+  <form method="get" action="/clickbait">
+
+    <%# false game board filled with total clickbait %>
+    <%# redirects to /signup %>
+
+    <div class="board">
+
+      <% 4.times do %>
+        <div class="cell">
+          <input type="image" src="/images/o.svg">
+        </div>
+      <% end %>
+
+      <div class="cell">
+        <img src="/images/x.svg">
+      </div>
+
+      <% 4.times do %>
+        <div class="cell">
+          <input type="image" src="/images/o.svg">
+        </div>
+      <% end %>
+
+    </div>
+
+  </form>
+</div>
