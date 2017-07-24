@@ -1,6 +1,12 @@
 class GamesController < ApplicationController
 
   get "/games/new" do
+    @users = User.all.reject do |user|
+      user == current_user
+    end.sort_by do |user|
+      user.username
+    end
+
     erb :"/games/new.html"
   end
 

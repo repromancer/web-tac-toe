@@ -277,3 +277,18 @@ input[type=submit]:hover {
 .roster_legend {
   font-size: 1.5rem;
 }
+
+form.roster {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: .5rem;
+}
+
+form.roster span {
+  margin: 1rem;
+}
+
+form.roster input {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}

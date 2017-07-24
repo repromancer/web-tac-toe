@@ -1,1 +1,18 @@
-<h1>Insert the form to create a new instance of your model.</h1>
+<div class="wrapper">
+
+  <div class="bar">
+    <form class="roster" method="post" action="/invites">
+
+      <input type="submit" value="Play Single-Player Game"
+        formaction="/games">
+
+      <span>Or challenge another player!</span>
+
+      <% @users.each do |user| %>
+        <input type="submit" value="<%= user.username %>" id="<%= user.id %>">
+      <% end %>
+
+    </form>
+  </div>
+
+</div>
