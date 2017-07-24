@@ -30,6 +30,7 @@ $quote:         hsl(191, 33%, 75%);
   margin: 0;
   font-family: 'Rubik', sans-serif;
   text-transform: uppercase;
+  color: hsl(191, 16%, 30%);
 }
 
 html, body {
@@ -37,13 +38,18 @@ html, body {
   width: 100%;
 }
 
-body {
-  background-color: hsl(191, 66%, 60%);
-}
-
 a {
   text-decoration: none;
   color: inherit;
+}
+
+
+body {
+  background-color: hsl(191, 66%, 60%);
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+
 }
 
 .navigation {
@@ -51,6 +57,14 @@ a {
   flex-flow: row wrap;
   justify-content: center;
   width: 100%;
+  height: min-content;
+  flex-grow: 0;
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  align-items: stretch;
 }
 
 .bar {
@@ -73,7 +87,7 @@ a {
   margin-right: 0;
 }
 
-.title {
+.title, .flash_message {
   color: hsl(191, 33%, 60%);
   font-size: 1.25rem;
   align-self: stretch;
@@ -81,19 +95,8 @@ a {
   padding-right: 1rem;
 }
 
-.signup {
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
 .flash_message {
   color: hsl(12, 66%, 60%);
-  width: fit-content;
-  background: hsl(191, 33%, 90%);
-  padding: .5rem .75rem;
-  border-radius: .75rem;
-  margin: 1rem auto;
 }
 
 .bar input {
@@ -121,10 +124,9 @@ input[type=submit]:hover {
 }
 
 
-.board-wrapper {
-  width: available;
-  height: 100%;
 
+.wrapper {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -174,6 +176,7 @@ input[type=submit]:hover {
 .profile {
   display: flex;
   flex-flow: row wrap;
+  align-content: flex-start;
 }
 
 .profile h1, .profile h2, .profile h3 {
@@ -204,7 +207,7 @@ input[type=submit]:hover {
   flex-flow: row wrap;
   align-content: flex-start;
   justify-content: center;
-  flex-basis: 33%;
+  flex-basis: 45%;
   flex-grow: 1;
   margin: 1rem;
 }
@@ -250,9 +253,12 @@ input[type=submit]:hover {
   width: 100%;
 }
 
+.roster li span{
+  padding: .5rem .75rem;
+}
+
 .roster li a, .roster_legend {
   background: hsl(191, 33%, 90%);
-  padding: .5rem;
   border-radius: .75rem;
   margin: 1rem;
   font-size: 1.25rem;
