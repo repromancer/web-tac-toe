@@ -14,7 +14,7 @@ module AuthenticationUtils
 
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      flash[:message] = "Welcome, #{user.username}!"
+      flash[:message] = "Welcome, #{user.username}! :D"
       block_given? ? yield : redirect("/users/#{current_user.slug}")
     else
       flash[:message] = "Sorry! Invalid username or password. :("
@@ -29,7 +29,7 @@ module AuthenticationUtils
 
   def screen_unauthorized_users
     unless logged_in?
-      flash[:message] = "Please log in."
+      flash[:message] = "Sorry! Please log in. >.<"
       redirect '/'
     end
   end
@@ -52,7 +52,10 @@ module AuthenticationUtils
       if user.save
         block_given? ? login(params){yield} : login(params)
       else
-        flash[:message] = "Please fill out every field."
+        flash[:message] = "Placeholder error message."
+        ###############################################
+        ## NEEDS TO IMPLEMENT VALIDATION ERORR MESSAGES
+        ###############################################
         redirect '/signup'
       end
 
