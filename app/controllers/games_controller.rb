@@ -10,8 +10,13 @@ class GamesController < ApplicationController
     erb :"/games/new.html"
   end
 
-  post "/games" do
-    redirect "/games"
+  post "/games/singleplayer" do
+    newgame = Game.create.tap do |game|
+      game.players << current_user
+      game.save
+    end
+
+    redirect "/games/#{newgame.id}"
   end
 
   get "/games/:id" do
