@@ -46,17 +46,39 @@ a {
   color: inherit;
 }
 
-.controls {
+.navigation {
   display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
   width: 100%;
 }
 
-.login {
-  justify-content: center;
+.bar {
+  width: fit-content;
+  background: hsl(191, 33%, 90%);
+  padding: .5rem;
+  border-radius: .75rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
 }
 
-.logout {
-  justify-content: flex-start;
+.bar > * {
+  margin-right: 1rem;
+}
+
+.bar > *:last-child {
+  margin-right: 0;
+}
+
+.title {
+  color: hsl(191, 33%, 60%);
+  font-size: 1.25rem;
+  align-self: stretch;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .signup {
@@ -74,16 +96,7 @@ a {
   margin: 1rem auto;
 }
 
-.controls form {
-  width: fit-content;
-  background: hsl(191, 33%, 90%);
-  padding: .5rem;
-  border-radius: .75rem;
-  margin-top: 1rem;
-  margin-left: 1rem;
-}
-
-.controls input {
+.bar input {
   font-size: 1rem;
   padding: .5rem .75rem;
   border: none;
@@ -203,7 +216,6 @@ input[type=submit]:hover {
 .grid {
   display: grid;
   width: fit-content;
-
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
   align-content: center;
@@ -222,30 +234,6 @@ input[type=submit]:hover {
   transition: background 0s;
 }
 
-/* .board {
-  padding: 2vh;
-  border-radius: 3vh;
-  background: hsl(191, 33%, 90%);
-  width: 33vh;
-  height: 33vh;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  grid-gap: 2vh;
-}
-
-.cell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  line-height: 0;
-  background: hsl(191, 33%, 75%);
-  border-radius: 1.5vh;
-} */
-
-
 .roster {
   width: 100%;
   height: fit-content;
@@ -254,8 +242,6 @@ input[type=submit]:hover {
   align-items: center;
   justify-content: flex-start;
 }
-
-
 
 .roster ul {
   display: flex;

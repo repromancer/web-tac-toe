@@ -1,56 +1,70 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 
-  <title>WebTacToe</title>
+    <title>Web-Tac-Toe</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
-  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
-</head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+    <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+  </head>
 
-<body>
+  <body>
 
-  <% unless request.path_info == "/signup" %>
 
-    <% if logged_in? %>
-      <div class="logout controls">
-        <form method="get" action="/logout">
-          <input type="submit" value="Log Out">
-        </form>
+      <div class="navigation">
+
+        <% unless request.path_info == "/signup" %>
+          <% if logged_in? %>
+            <div class="title bar">
+              <span>Logged in as <%=current_user.username%></span>
+            </div>
+            <div class="bar">
+              <form method="get" action="/games/new">
+                <input type="submit" value="New Game">
+              </form>
+            </div>
+            <div class="bar">
+              <form method="get" action="/users/<%=current_user.slug%>">
+                <input type="submit" value="Your Profile">
+              </form>
+            </div>
+            <div class="bar">
+              <form method="get" action="/logout">
+                <input type="submit" value="Log Out">
+              </form>
+            </div>
+          <% else %>
+            <div class="title bar">
+              <span>Welcome to Web-Tac-Toe!</span>
+            </div>
+            <div class="bar">
+              <form method="post" action="/login">
+                <input type="text" name="username" placeholder="username">
+                <input type="password" name="password" placeholder="password">
+                <input type="submit" value="Log In">
+              </form>
+              <form method="get" action="/signup">
+                <input type="submit" value="Sign Up">
+              </form>
+            </div>
+          <% end %>
+        <% end %>
+
       </div>
-    <% else %>
-      <div class="login controls">
-        <form method="post" action="/login">
-          <input type="text" name="username" placeholder="username">
-          <input type="password" name="password" placeholder="password">
-          <input type="submit" value="Log In">
-        </form>
-        <form method="get" action="/signup">
-          <input type="submit" value="Sign Up">
-        </form>
+
+
+    <% if flash.has?(:message) %>
+      <div class="flash_message">
+        <span><%= flash[:message] %></span>
       </div>
     <% end %>
 
-  <% end %>
+    <%= yield %>
 
-  <% if flash.has?(:message) %>
-    <div class="flash_message">
-      <span><%= flash[:message] %></span>
-    </div>
-  <% end %>
+  </body>
 
-  <%= yield %>
-
-  <%# <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> %>
-  <!--[if lt IE 7]>
-    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
-    <script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
-  <![endif]-->
-</body>
+</html>
