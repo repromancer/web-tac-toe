@@ -4,6 +4,7 @@
   <div class="games">
     <h2>Curent Games</h2>
     <div class="grid">
+      <%################################################# %>
       <%### ongoing games displayed graphically on a grid %>
       <% @games.reject(&:complete?).each do |game|%>
         <a class="board" href="/games/<%= game.id %>">
@@ -23,7 +24,8 @@
           <% end %>
         </a>
       <% end %>
-      <%###%>
+      <%### end games grid %>
+      <%################## %>
     </div>
   </div>
 

@@ -1,12 +1,12 @@
 class GamesController < ApplicationController
 
-  # get "/games/new" do
-  #   erb :"/games/new.html"
-  # end
+  get "/games/new" do
+    erb :"/games/new.html"
+  end
 
-  # post "/games" do
-  #   redirect "/games"
-  # end
+  post "/games" do
+    redirect "/games"
+  end
 
   get "/games/:id" do
     @game = Game.find(params[:id])
