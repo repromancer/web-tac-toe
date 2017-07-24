@@ -1,5 +1,7 @@
 class GamesController < ApplicationController
 
+  helpers ComputerPlayerLogic
+
   get "/games/new" do
     @users = User.all.reject do |user|
       user == current_user
