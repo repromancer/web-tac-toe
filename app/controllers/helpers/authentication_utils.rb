@@ -52,10 +52,13 @@ module AuthenticationUtils
       if user.save
         block_given? ? login(params){yield} : login(params)
       else
-        flash[:message] = "Placeholder error message."
-        ###############################################
-        ## NEEDS TO IMPLEMENT VALIDATION ERORR MESSAGES
-        ###############################################
+        apology = "Whoops! (; - ;) Oh noes!!! <br/>"
+        errors = user.errors.full_messages.collect do |error|
+          error.prepend("Your ")
+        end.join("<br/>")
+
+        flash[:message] = apology + errors
+
         redirect '/signup'
       end
 
