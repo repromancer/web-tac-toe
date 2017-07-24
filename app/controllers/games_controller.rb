@@ -24,9 +24,8 @@ class GamesController < ApplicationController
   get "/games/:id" do
     @game = Game.find(params[:id])
 
-    if @game.vs_computer?
-      # if it's the computer's turn, let it go
-      # before displaying the board
+    if @game.vs_computer? && @game.current_player_token == '1'
+      @game.place_token(make_move(@game))
     end
 
     erb :"/games/show.html"

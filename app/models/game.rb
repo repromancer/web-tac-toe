@@ -10,6 +10,13 @@ class Game < ActiveRecord::Base
 
   after_initialize :initialize_board
 
+
+
+  WIN_COMBINATIONS = [
+    [0,1,2], [3,4,5], [6,7,8], [0,3,6],
+    [1,4,7], [2,5,8], [0,4,8], [6,4,2]
+  ]
+
   def initialize_board
     # game boards are stored as a string,
     # e.g. '001000210', where:
@@ -19,11 +26,12 @@ class Game < ActiveRecord::Base
     self.board ||= ('0')*9
   end
 
-  # just a helper method
-  # reads better than "board.chars" in code
   def cells
     board.chars
   end
+
+
+
 
 
 
@@ -38,6 +46,9 @@ class Game < ActiveRecord::Base
   def vs_computer?
     player_1 == player_2
   end
+
+
+
 
 
 
@@ -56,6 +67,11 @@ class Game < ActiveRecord::Base
     turn_count.even? ? '1' : '2'
   end
 
+
+
+
+
+
   def cell_taken?(index)
     board[index] == '1' || board[index] == '2'
   end
@@ -69,12 +85,19 @@ class Game < ActiveRecord::Base
 
 
 
-  def board_full?
-    turn_count == 9
-  end
+
+
 
   def won?
-    winner || loser
+    WIN_COMBINATIONS.detect do |combo|
+      cell_taken?(combo[0]) &&
+      cells[combo[0]] == cells[combo[1]] &&
+      cells[combo[1]] == cells[combo[2]]
+    end
+  end
+
+  def board_full?
+    turn_count == 9
   end
 
   def tie?

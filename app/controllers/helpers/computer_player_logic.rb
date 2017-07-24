@@ -1,119 +1,124 @@
 module ComputerPlayerLogic
 
-  # def initialize(token)
-  #   super
-  #   @opponent_token = token == "X" ? "O" : "X"
-  #   @center = "5"
-  #   @corners = ["1","3","7","9"]
-  #   @sides = ["2","4","6","8"]
-  # end
+  def center
+    4
+  end
+
+  def corners
+    [0,2,6,8]
+  end
+  def sides
+    [1,3,5,7]
+  end
 
 
 
-  # def can_win?(player_token, board)
-  #   Game::WIN_COMBINATIONS.detect do |combo|
-  #     combo.count{|i| board.cells[i] == player_token} == 2 &&
-  #     combo.count{|i| board.cells[i] == " "} == 1
-  #   end
-  # end
+  def can_win?(token, board)
+    Game::WIN_COMBINATIONS.detect do |combo|
+      combo.count{|i| board.cells[i] == token} == 2 &&
+      combo.count{|i| board.cells[i] == '0'} == 1
+    end
+  end
 
-  # def win(board)
-  #   "#{can_win?(@token, board).detect{|i| board.cells[i] == " "} + 1}"
-  # end
+  def win(game)
+    can_win?('1', game).detect{|i| game.cells[i] == '0'}
+  end
 
-  # def block_opponent(board)
-  #   "#{can_win?(@opponent_token, board).detect{|i| board.cells[i] == " "} + 1}"
-  # end
-
-
-
-  # def center_free?(board)
-  #   board.taken?(@center) == false
-  # end
+  def block_opponent(game)
+    can_win?('2', game).detect{|i| game.cells[i] == '0'}
+  end
 
 
 
-  # def corners_occupied?(board)
-  #   occupied = @corners.select do |c|
-  #     board.taken?(c) &&
-  #     board.cells[c.to_i - 1] == @opponent_token
-  #   end
-  #   occupied unless occupied.empty?
-  # end
-
-  # def opposing_corner_free?(board)
-  #   corners_occupied?(board).detect do |corner|
-  #     case corner
-  #     when "1"
-  #       true if board.taken?("9") == false
-  #     when "3"
-  #       true if board.taken?("7") == false
-  #     when "7"
-  #       true if board.taken?("3") == false
-  #     when "9"
-  #       true if board.taken?("1") == false
-  #     end
-  #   end
-  # end
-
-  # def take_opposing_corner(board)
-  #   case opposing_corner_free?(board)
-  #   when "1"
-  #     "9"
-  #   when "3"
-  #     "7"
-  #   when "7"
-  #     "3"
-  #   when "9"
-  #     "1"
-  #   end
-
-  # end
+  def center_free?(game)
+    ! game.cell_taken?(center)
+  end
 
 
 
-  # def corner_free?(board)
-  #   @corners.detect{|c| board.taken?(c) == false}
-  # end
+  def corners_occupied?(game)
+    occupied = corners.select do |corner|
+      game.cell_taken?(corner) &&
+      game.cells[corner] == '2'
+    end
+    occupied if occupied.any?
+  end
 
-  # def take_corner(board)
-  #   corner_free?(board)
-  # end
+  def opposing_corner_free?(game)
+    corners_occupied?(game).detect do |corner|
+      case corner
+      when 0
+        game.cell_taken?(8) == false
+      when 2
+        game.cell_taken?(6) == false
+      when 6
+        game.cell_taken?(2) == false
+      when 8
+        game.cell_taken?(0) == false
+      end
+    end
+  end
+
+  def take_opposing_corner(game)
+    case opposing_corner_free?(game)
+    when 0
+      8
+    when 2
+      6
+    when 6
+      2
+    when 8
+      0
+    end
+  end
 
 
-  # def side_free?(board)
-  #   @sides.detect{|c| board.taken?(c) == false}
-  # end
 
-  # def take_side(board)
-  #   side_free?(board)
-  # end
+  def corner_free?(game)
+    corners.detect do |corner|
+      game.cell_taken?(corner) == false
+    end
+  end
+
+  def take_corner(game)
+    corner_free?(game)
+  end
+
+  def side_free?(game)
+    sides.detect do |side|
+      game.cell_taken?(side) == false
+    end
+  end
+
+  def take_side(game)
+    side_free?(game)
+  end
 
 
 
+  def make_move(game)
 
-  # def move(board)
-  #   if can_win?(@token, board)
-  #     win(board)
+    if can_win?('1', game)
+      win(game)
 
-  #   elsif can_win?(@opponent_token, board)
-  #     block_opponent(board)
+    elsif can_win?('2', game)
+      block_opponent(game)
 
-  #   elsif center_free?(board)
-  #     @center
+    elsif center_free?(game)
+      center
 
-  #   elsif corners_occupied?(board) && opposing_corner_free?(board)
-  #     take_opposing_corner(board)
+    elsif corners_occupied?(game) && opposing_corner_free?(game)
+      take_opposing_corner(game)
 
-  #   elsif corner_free?(board)
-  #     take_corner(board)
+    elsif corner_free?(game)
+      take_corner(game)
 
-  #   elsif side_free?(board)
-  #     take_side(board)
+    elsif side_free?(game)
+      take_side(game)
 
-  #   end
+    end
 
-  # end
+  end
 
 
 
