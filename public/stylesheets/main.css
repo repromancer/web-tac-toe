@@ -54,29 +54,33 @@ body {
 
 .navigation {
   display: flex;
+  height: fit-content;
   flex-flow: row wrap;
   justify-content: center;
+  align-items: flex-start;
+  margin-top: 1rem;
+  margin-bottom: .5rem;
   width: 100%;
-  height: min-content;
   flex-grow: 0;
 }
 
 .content {
   flex-grow: 1;
   display: flex;
+  flex-flow: row wrap;
   align-items: stretch;
 }
 
 .bar {
-  width: fit-content;
   background: hsl(191, 33%, 90%);
   padding: .5rem;
   border-radius: .75rem;
-  margin-top: 1rem;
   margin-left: 1rem;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  margin-bottom: .5rem;
+
 }
 
 .bar > * {
@@ -87,28 +91,24 @@ body {
   margin-right: 0;
 }
 
-.title, .flash_message {
-  color: hsl(191, 33%, 60%);
-  font-size: 1.25rem;
-  align-self: stretch;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
 .flash_message {
-  color: hsl(12, 66%, 60%);
+  color: hsl(191, 33%, 60%);
 }
 
-.bar input {
+.bar input, .title span, .flash_message span {
   font-size: 1rem;
   padding: .5rem .75rem;
   border: none;
   border-radius: .5rem;
 }
 
+.bar input {
+  display: block;
+}
+
 input[type=text], input[type=password] {
-  margin-right: .25rem;
-  box-shadow: inset 0 0 10px hsl(191, 16%, 30%);
+  margin-right: .5rem;
+  box-shadow: inset 0 0 .5rem hsl(191, 16%, 30%);
 }
 
 input[type=submit] {
@@ -172,14 +172,7 @@ input[type=submit]:hover {
 
 
 
-
-.profile {
-  display: flex;
-  flex-flow: row wrap;
-  align-content: flex-start;
-}
-
-.profile h1, .profile h2, .profile h3 {
+.content h1, .content h2, .content h3 {
   background: hsl(191, 33%, 90%);
   padding: .5rem .75rem;
   border-radius: .75rem;
@@ -187,12 +180,12 @@ input[type=submit]:hover {
   text-align: center;
 }
 
-.profile h1 {
+.content h1 {
   flex-basis: 100%;
   font-size: 2.5rem;
 }
 
-.profile h2 {
+.content h2 {
   flex-basis: 100%;
   font-size: 2rem;
 }

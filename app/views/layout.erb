@@ -33,25 +33,22 @@
           </div>
 
           <%# new game button %>
-          <div class="bar">
-            <form method="get" action="/games/new">
-              <input type="submit" value="New Game">
-            </form>
-          </div>
+
+          <form class="bar" method="get" action="/games/new">
+            <input type="submit" value="New Game">
+          </form>
 
           <%# current user profile button %>
-          <div class="bar">
-            <form method="get" action="/users/<%=current_user.slug%>">
-              <input type="submit" value="Your Profile">
-            </form>
-          </div>
+
+          <form class="bar" method="get" action="/users/<%=current_user.slug%>">
+            <input type="submit" value="Your Profile">
+          </form>
 
           <%# log out button %>
-          <div class="bar">
-            <form method="get" action="/logout">
-              <input type="submit" value="Log Out">
-            </form>
-          </div>
+
+          <form class="bar" method="get" action="/logout">
+            <input type="submit" value="Log Out">
+          </form>
 
         <% else %>
 
@@ -61,16 +58,15 @@
           </div>
 
           <%# login/signup %>
-          <div class="bar">
-            <form method="post" action="/login">
-              <input type="text" name="username" placeholder="username">
-              <input type="password" name="password" placeholder="password">
-              <input type="submit" value="Log In">
-            </form>
-            <form method="get" action="/signup">
-              <input type="submit" value="Sign Up">
-            </form>
-          </div>
+
+          <form class="bar" method="post" action="/login">
+            <input type="text" name="username" placeholder="username">
+            <input type="password" name="password" placeholder="password">
+            <input type="submit" value="Log In">
+          </form>
+          <form class="bar" method="get" action="/signup">
+            <input type="submit" value="Sign Up">
+          </form>
 
         <% end %>
 
