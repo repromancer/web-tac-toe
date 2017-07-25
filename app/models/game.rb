@@ -88,6 +88,7 @@ class Game < ActiveRecord::Base
             winning_play_token == '1' ? self.loser = player_2 : self.winner = player_2
           else
             self.winner = winning_play_token == '1' ? player_1 : player_2
+            self.loser = winning_play_token == '1' ? player_2 : player_1
           end
         end
       end
@@ -107,10 +108,10 @@ class Game < ActiveRecord::Base
       true
     else
 
-    WIN_COMBINATIONS.detect do |combo|
-      cell_taken?(combo[0]) &&
-      cells[combo[0]] == cells[combo[1]] &&
-      cells[combo[1]] == cells[combo[2]]
+      WIN_COMBINATIONS.detect do |combo|
+        cell_taken?(combo[0]) &&
+        cells[combo[0]] == cells[combo[1]] &&
+        cells[combo[1]] == cells[combo[2]]
       end
 
     end
