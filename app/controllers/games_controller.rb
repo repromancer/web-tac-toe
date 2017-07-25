@@ -31,6 +31,18 @@ class GamesController < ApplicationController
     erb :"/games/show.html"
   end
 
+  patch "/games/:id/surrender" do
+    Game.find(params[:id]).tap do |game|
+      game.loser = current_user
+      unless game.vs_computer?
+        game.winner = game.players.detect{|user| user != current_user}
+      end
+      game.save
+    end
+
+    redirect "/games/#{params[:id]}"
+  end
+
   patch "/games/:id/:cell" do
     unless Game.find(params[:id]).place_token(params[:cell].to_i)
       flash[:message] = "Sorry! That cell is already taken. :("

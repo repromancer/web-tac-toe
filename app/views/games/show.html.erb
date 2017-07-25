@@ -45,10 +45,14 @@
 
       <% end %>
 
-    </div>
+    </div> <%# END BOARD %>
 
   <%#%>
   <% if @game.current_player == current_user %>
+      <div class="bar">
+        <input type="submit" value="Surrender" formaction="/games/<%= @game.id %>/surrender">
+      </div>
+
     <% unless @game.vs_computer? && @game.current_player_token == '1' %>
       </form>
     <% end %>
