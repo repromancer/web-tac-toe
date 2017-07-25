@@ -67,7 +67,9 @@ class Game < ActiveRecord::Base
     turn_count.even? ? '1' : '2'
   end
 
-
+  def winning_play_token
+    board[won?.first]
+  end
 
 
 
@@ -79,7 +81,19 @@ class Game < ActiveRecord::Base
   def place_token(index)
     unless !(0..8).include?(index) || cell_taken?(index)
       board[index] = current_player_token
+
+      if complete?
+        if won?
+          if vs_computer?
+            winning_play_token == '1' ? self.loser = player_2 : self.winner = player_2
+          else
+            self.winner = winning_play_token == '1' ? player_1 : player_2
+          end
+        end
+      end
+
       save
+
     end
   end
 
