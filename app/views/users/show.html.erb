@@ -1,56 +1,84 @@
-<%# <div class="profile"> %>
-  <h1><%= @user.username %></h1>
+<h1><%= @user.username %></h1>
 
-  <div class="games">
-    <h2>Curent Games</h2>
-    <div class="grid">
-      <%################################################# %>
-      <%### ongoing games displayed graphically on a grid %>
-      <% @user.games.reject(&:complete?).each do |game|%>
-        <a class="board" href="/games/<%= game.id %>">
-          <% game.cells.each do |cell| %>
-            <% if cell == "1" %>
-              <div class="cell">
-                <img src="/images/x.svg">
-              </div>
-            <% elsif cell == "2" %>
-              <div class="cell">
-                <img src="/images/o.svg">
-              </div>
-            <% else %>
-              <div class="cell">
-              </div>
-            <% end %>
-          <% end %>
-        </a>
-      <% end %>
-      <%### end games grid %>
-      <%################## %>
-    </div>
-  </div>
-
-  <div class="stats">
-    <h2>Game History</h2>
-    <h3>Play/Loss Ratio: <%= @user.play_loss_ratio %></h3>
-    <div class="roster">
+<div class="invites">
+  <h2>Invites</h2>
+  <% if @user.received_invites.any? %>
+    <form method="post" action="/games">
       <ul>
-        <li class="roster_legend">
-          <span>Opponent</span>
-          <span>/</span>
-          <span>Results</span>
+      <% @user.received_invites.each do |invite| %>
+        <li>
+          <span><%= invite.sender.username %></span>
+          <button type="submit" name="invite_id" value="<%=invite.id%>">Play!</button>
         </li>
-        <% @user.opponents.each do |user| %>
-          <li>
-            <a href="/users/<%= user.slug %>">
-
-              <span><%= user.username %></span>
-
-              <span>Wins: <%= @user.wins_against(user) %> / Losses: <%= @user.losses_against(user) %></span>
-
-            </a>
-          </li>
-        <% end %>
+      <% end %>
       </ul>
-  </div>
+    </form>
+  <% end %>
 
-<%# </div> %>
+  <% if @user.sent_invites.any? %>
+    <div>
+      <ul>
+      <% @user.sent_invites.each do |invite| %>
+        <li>
+          <span>Waiting on <%= invite.receiver.username %></span>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
+
+<div class="games">
+  <h2>Curent Games</h2>
+  <div class="grid">
+    <%################################################# %>
+    <%### ongoing games displayed graphically on a grid %>
+    <% @user.games.reject(&:complete?).each do |game|%>
+      <a class="board" href="/games/<%= game.id %>">
+        <% game.cells.each do |cell| %>
+          <% if cell == "1" %>
+            <div class="cell">
+              <img src="/images/x.svg">
+            </div>
+          <% elsif cell == "2" %>
+            <div class="cell">
+              <img src="/images/o.svg">
+            </div>
+          <% else %>
+            <div class="cell">
+            </div>
+          <% end %>
+        <% end %>
+      </a>
+    <% end %>
+    <%### end games grid %>
+    <%################## %>
+  </div>
+</div>
+
+
+
+<div class="stats">
+  <h2>Game History</h2>
+  <h3>Play/Loss Ratio: <%= @user.play_loss_ratio %></h3>
+  <div class="roster">
+    <ul>
+      <li class="roster_legend">
+        <span>Opponent</span>
+        <span>/</span>
+        <span>Results</span>
+      </li>
+      <% @user.opponents.each do |user| %>
+        <li>
+          <a href="/users/<%= user.slug %>">
+
+            <span><%= user.username %></span>
+
+            <span>Wins: <%= @user.wins_against(user) %> / Losses: <%= @user.losses_against(user) %></span>
+
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
