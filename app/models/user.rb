@@ -27,4 +27,23 @@ class User < ActiveRecord::Base
     username.downcase.split.join('-')
   end
 
+
+  def play_loss_ratio
+    games.size / games.select{|game| game.loser == self}.size
+  end
+
+  def opponents
+    games.collect do |game|
+      game.players.detect{|user| user != self}
+    end.uniq.compact
+  end
+
+  def wins_against(user)
+    user.games.select{|game| game.winner == self}.size
+  end
+
+  def losses_against(user)
+    user.games.select{|game| game.loser == self}.size
+  end
+
 end

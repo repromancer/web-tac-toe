@@ -6,7 +6,7 @@
     <div class="grid">
       <%################################################# %>
       <%### ongoing games displayed graphically on a grid %>
-      <% @games.reject(&:complete?).each do |game|%>
+      <% @user.games.reject(&:complete?).each do |game|%>
         <a class="board" href="/games/<%= game.id %>">
           <% game.cells.each do |cell| %>
             <% if cell == "1" %>
@@ -31,7 +31,7 @@
 
   <div class="stats">
     <h2>Game History</h2>
-    <h3>Play/Loss Ratio: <%= @kd_ratio %></h3>
+    <h3>Play/Loss Ratio: <%= @user.play_loss_ratio %></h3>
     <div class="roster">
       <ul>
         <li class="roster_legend">
@@ -39,16 +39,13 @@
           <span>/</span>
           <span>Results</span>
         </li>
-        <% @opponents.each do |user| %>
+        <% @user.opponents.each do |user| %>
           <li>
             <a href="/users/<%= user.slug %>">
 
               <span><%= user.username %></span>
 
-              <span>Wins: <%=
-                  user.lost_games.select{|game| game.players.include?(@user)}.size%> / Losses: <%=
-                  user.won_games.select{|game| game.players.include?(@user)}.size%>
-              </span>
+              <span>Wins: <%= @user.wins_against(user) %> / Losses: <%= @user.losses_against(user) %></span>
 
             </a>
           </li>
