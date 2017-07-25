@@ -59,4 +59,15 @@
   <% end %>
   <%# wrap board in form tags for current player %>
 
+
+  <% unless @game.current_player == current_user  %>
+    <%# add surrender button for players of the game %>
+    <%# do not display duplicate button if current player == current user %>
+    <% if @game.players.include?(current_user) %>
+      <form class="bar" method="post" action="/games/<%= @game.id %>/surrender">
+        <input type="hidden" id="hidden" name="_method" value="patch">
+        <input type="submit" value="Surrender">
+      </form>
+    <% end %>
+  <% end %>
 </div>
