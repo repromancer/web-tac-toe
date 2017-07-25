@@ -70,4 +70,42 @@
       </form>
     <% end %>
   <% end %>
+
+  <% if @game.vs_computer? %>
+    <div class="title bar">
+  <% else %>
+    <a class="title bar" href="/users/<%= @game.player_1.slug %>">
+  <% end %>
+
+    <span>Player 1: <%= @game.vs_computer? ? 'Computer' : @game.player_1.username %></span>
+
+  </<%= @game.vs_computer? ? 'div' : 'a' %>>
+
+  <a class="title bar" href="/users/<%= @game.player_2.slug %>">
+    <span>Player 2: <%= @game.player_2.username %></span>
+  </a>
+
+  <% if @game.complete? %>
+
+    <% if @game.won? %>
+
+      <div class="title bar">
+        <span>Winner: <%= @game.winner.nil? ? 'Computer' : @game.winner.username %></span>
+      </div>
+
+      <div class="title bar">
+        <span>Loser: <%= @game.loser.nil? ? 'Computer' : @game.loser.username %></span>
+      </div>
+
+    <% else %>
+
+      <div class="title bar">
+        <span>Tie Game!</span>
+      </div>
+
+    <% end %>
+
+  <% end %>
+
+
 </div>
