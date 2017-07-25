@@ -103,10 +103,16 @@ class Game < ActiveRecord::Base
 
 
   def won?
+    if winner || loser
+      true
+    else
+
     WIN_COMBINATIONS.detect do |combo|
       cell_taken?(combo[0]) &&
       cells[combo[0]] == cells[combo[1]] &&
       cells[combo[1]] == cells[combo[2]]
+      end
+
     end
   end
 
