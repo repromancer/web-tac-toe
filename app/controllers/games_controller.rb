@@ -62,9 +62,14 @@ class GamesController < ApplicationController
   end
 
   patch "/games/:id/:cell" do
-    unless Game.find(params[:id]).place_token(params[:cell].to_i)
-      flash[:message] = "Sorry! That cell is already taken. :("
+    Game.find(params[:id]).tap do |game|
+      if game.current_player == current_user
+        unless game.place_token(params[:cell].to_i)
+          flash[:message] = "Sorry! That cell is already taken. :("
+        end
+      end
     end
+
     redirect "/games/#{params[:id]}"
   end
 
