@@ -6,7 +6,7 @@
   <% if @user.received_invites.any? %>
     <form method="post" action="/games" id="accept_invite"></form>
     <ul class="roster">
-    <% @user.received_invites.each do |invite| %>
+    <% @user.received_invites.select{|invite| ! invite.ignored?}.each do |invite| %>
       <li class="bar">
         <span><%= invite.sender.username %></span>
         <button form="accept_invite" type="submit" name="invite_id" value="<%=invite.id%>">Play!</button>
