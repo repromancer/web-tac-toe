@@ -25,10 +25,18 @@ class User < ActiveRecord::Base
   end
 
   def slug
-    username.downcase.split.join('-')
+    @slug ||= username.downcase.split.join('-')
   end
 
+  def invites
+    @invites ||= received_invites.dup + sent_invites.dup
+  end
 
+  def already_invited?(user)
+    invites.detect do |invite|
+      invite.sender == user || invite.receiver == user
+    end
+  end
 
   def play_loss_ratio
     completed_games = games.select(&:complete?).size.to_f
