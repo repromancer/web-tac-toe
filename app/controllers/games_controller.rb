@@ -12,6 +12,22 @@ class GamesController < ApplicationController
     erb :"/games/new.html"
   end
 
+  post "/games" do
+    invite = Invite.find(params[:invite_id])
+    if invite.receiver == current_user
+      newgame = Game.create.tap do |game|
+        game.players << invite.sender
+        game.players << invite.receiver
+        game.save
+      end
+      invite.delete
+      redirect "/games/#{newgame.id}"
+    else
+      redirect "/users/#{current_user.slug}"
+    end
+
+  end
+
   post "/games/singleplayer" do
     newgame = Game.create.tap do |game|
       game.players << current_user
