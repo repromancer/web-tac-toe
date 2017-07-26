@@ -1,42 +1,46 @@
 <h1><%= @user.username %></h1>
 
-<div class="invites">
-  <h2>Invites</h2>
+<% if @user == current_user %>
 
-  <% if @user.received_invites.any? %>
-    <form method="post" action="/games" id="accept_invite"></form>
-    <ul class="roster">
-    <% @user.received_invites.select{|invite| ! invite.ignored?}.each do |invite| %>
-      <li class="bar">
-        <span><%= invite.sender.username %></span>
-        <button form="accept_invite" type="submit" name="invite_id" value="<%=invite.id%>">Play!</button>
+  <div class="invites">
+    <h2>Invites</h2>
 
-        <form method="post" action="/invites" id="ignore_invite">
-          <input type="hidden" id="hidden" name="_method" value="patch">
-        </form>
-        <button form="ignore_invite" type="submit" name="invite_id" value="<%=invite.id%>">Ignore</button>
+    <% if @user.received_invites.any? %>
+      <form method="post" action="/games" id="accept_invite"></form>
+      <ul class="roster">
+      <% @user.received_invites.select{|invite| ! invite.ignored?}.each do |invite| %>
+        <li class="bar">
+          <span><%= invite.sender.username %></span>
+          <button form="accept_invite" type="submit" name="invite_id" value="<%=invite.id%>">Play!</button>
 
-      </li>
+          <form method="post" action="/invites" id="ignore_invite">
+            <input type="hidden" id="hidden" name="_method" value="patch">
+          </form>
+          <button form="ignore_invite" type="submit" name="invite_id" value="<%=invite.id%>">Ignore</button>
+
+        </li>
+      <% end %>
+      </ul>
     <% end %>
-    </ul>
-  <% end %>
 
-  <% if @user.sent_invites.any? %>
-    <form method="post" action="/invites" id="withdraw_invite">
-      <input type="hidden" id="hidden" name="_method" value="delete">
-    </form>
+    <% if @user.sent_invites.any? %>
+      <form method="post" action="/invites" id="withdraw_invite">
+        <input type="hidden" id="hidden" name="_method" value="delete">
+      </form>
 
-    <ul class="roster">
-    <% @user.sent_invites.each do |invite| %>
-      <li class="bar">
-        <span>Waiting on <%= invite.receiver.username %></span>
-        <button form="withdraw_invite" type="submit" name="invite_id" value="<%=invite.id%>">Withdraw</button>
-      </li>
+      <ul class="roster">
+      <% @user.sent_invites.each do |invite| %>
+        <li class="bar">
+          <span>Waiting on <%= invite.receiver.username %></span>
+          <button form="withdraw_invite" type="submit" name="invite_id" value="<%=invite.id%>">Withdraw</button>
+        </li>
+      <% end %>
+      </ul>
     <% end %>
-    </ul>
-  <% end %>
 
-</div>
+  </div>
+
+<% end %><%# end exclusion for spectators %>
 
 <div class="games">
   <h2>Curent Games</h2>
