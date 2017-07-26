@@ -1,7 +1,7 @@
 <div class="wrapper">
 
-  <div class="bar">
-    <form class="roster" method="post" action="/invites">
+  <%# <div class="bar"> %>
+    <form class="roster bar" method="post">
 
       <input type="submit" value="Play Single-Player Game"
         formaction="/games/singleplayer">
@@ -9,10 +9,11 @@
       <span>Or challenge another player!</span>
 
       <% @users.each do |user| %>
-        <input type="submit" value="<%= user.username %>" id="<%= user.id %>">
+        <button type="submit" formaction="/invites"
+        name="user_id" value="<%= user.id %>"><%= user.username %></button>
       <% end %>
 
     </form>
-  </div>
+  <%# </div> %>
 
 </div>
