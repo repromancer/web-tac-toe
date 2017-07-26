@@ -1,21 +1,18 @@
 /* COLORS
-
 $primary:       hsl(191, 66%, 60%);
-
 $complimentary:  hsl(48, 99%, 60%);
 $contrast:       hsl(12, 66%, 60%);
-
-$acc1:           hsl(12, 33%, 60%);
-$acc2:           hsl(72, 33%, 60%);
-
 $lowlight:      hsl(191, 16%, 30%);
 $midlight:      hsl(191, 33%, 60%);
-$highlight:     hsl( 48, 66%, 90%);
-
 $page:          hsl(191, 33%, 90%);
 $quote:         hsl(191, 33%, 75%);
-
 */
+
+
+
+/*###########*/
+/*### BASIS */
+/*#########*/
 
 @font-face {
   font-family: 'Rubik';
@@ -26,16 +23,17 @@ $quote:         hsl(191, 33%, 75%);
 }
 
 * {
-  padding: 0;
-  margin: 0;
   font-family: 'Rubik', sans-serif;
   text-transform: uppercase;
   color: hsl(191, 16%, 30%);
 }
 
 html, body {
+  padding: 0;
+  margin: 0;
   height: 100%;
   width: 100%;
+  background-color: hsl(191, 66%, 60%);
 }
 
 a {
@@ -43,67 +41,47 @@ a {
   color: inherit;
 }
 
-
-body {
-  background-color: hsl(191, 66%, 60%);
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: stretch;
-
+h1, h2, h3, h4, h5, h6, ul, ol, dl, li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.navigation {
-  display: flex;
-  height: fit-content;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: flex-start;
-  margin-top: 1rem;
-  margin-bottom: .5rem;
-  width: 100%;
-  flex-grow: 0;
+
+
+/*###############*/
+/*### PAGE GRID */
+/*#############*/
+
+.page_grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content auto;
+  height: 100%;
 }
 
-.content {
-  flex-grow: 1;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: stretch;
-}
+
+
+/*###################*/
+/*### PAGE ELEMENTS */
+/*#################*/
 
 .bar {
   background: hsl(191, 33%, 90%);
   padding: .5rem;
   border-radius: .75rem;
-  margin-left: 1rem;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  margin-bottom: .5rem;
-
+  justify-content: space-between;
+  white-space: nowrap;
 }
 
-.bar > * {
-  margin-right: 1rem;
-}
-
-.bar > *:last-child {
-  margin-right: 0;
-}
-
-.flash_message {
-  color: hsl(191, 33%, 60%);
-}
-
-.bar input, .title span, .flash_message span {
+.bar input, .bar span, .message span, button {
   font-size: 1rem;
   padding: .5rem .75rem;
   border: none;
   border-radius: .5rem;
-}
-
-.bar input {
-  display: block;
 }
 
 input[type=text], input[type=password] {
@@ -111,26 +89,102 @@ input[type=text], input[type=password] {
   box-shadow: inset 0 0 .5rem hsl(191, 16%, 30%);
 }
 
-input[type=submit] {
+input[type=submit], button {
   color: hsl(191, 33%, 90%);
   background: hsl(191, 33%, 60%);
   transition: background .5s;
 }
 
-input[type=submit]:hover {
+input[type=submit]:hover, button:hover {
   cursor: pointer;
   background: hsl(12, 66%, 60%);
   transition: background 0s;
 }
 
+.message {
+  background: hsl(48, 99%, 60%);
+}
 
-
-.wrapper {
+.roster {
   width: 100%;
   display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  margin: 1rem;
+}
+
+.roster li {
+  margin-bottom: 1rem;
+}
+
+a {
+  transition: background .5s;
+}
+
+a:hover {
+  cursor: pointer;
+  background: hsl(191, 16%, 100%);
+  transition: background 0s;
+}
+
+
+
+/*####################*/
+/*### NAVIGATION BAR */
+/*##################*/
+
+.navigation {
+  display: flex;
+  height: fit-content;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.navigation > * {
+  margin: 1rem .5rem;
+}
+
+
+
+/*#############*/
+/*### CONTENT */
+/*###########*/
+
+.content {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  padding: 0 .5rem;
+}
+
+.content > * {
+  display: flex;
+  flex-flow: row wrap;
   justify-content: center;
   align-items: center;
+  margin: .5rem;
 }
+
+
+
+/*###################*/
+/*### NEW GAME FORM */
+/*#################*/
+
+form.roster {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+  width: fit-content;
+}
+
+
+
+/*#################*/
+/*### GAME BOARDS */
+/*###############*/
 
 .board {
   padding: 2vh;
@@ -148,9 +202,6 @@ input[type=submit]:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  width: 100%;
-  line-height: 0;
   background: hsl(191, 33%, 75%);
   border-radius: 1.5vh;
 }
@@ -170,19 +221,51 @@ input[type=submit]:hover {
   opacity: .33;
 }
 
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+}
 
+.game_status, .game_board, .game_info {
+  display: flex;
+  justify-content: center;
+  flex-basis: 100%;
+  height: fit-content;
+  margin: .5rem;
+}
+
+.game_status, .game_board {
+  margin-bottom: 1rem;
+}
+
+.game_status > * {
+  margin: 0 .5rem;
+}
+
+
+
+.game_info > *:first-child {
+  margin-right: 1rem;
+}
+
+/*###################*/
+/*### USER PROFILES */
+/*#################*/
 
 .content h1, .content h2, .content h3 {
   background: hsl(191, 33%, 90%);
   padding: .5rem .75rem;
   border-radius: .75rem;
-  margin: 1rem;
   text-align: center;
 }
 
 .content h1 {
   flex-basis: 100%;
   font-size: 2.5rem;
+  margin-top: 0;
 }
 
 .content h2 {
@@ -190,22 +273,29 @@ input[type=submit]:hover {
   font-size: 2rem;
 }
 
-.stats > h3 {
-  font-size: 1.5rem;
-  width: fit-content;
-}
-
-.games, .stats {
+.invites, .games, .stats {
   display: flex;
   flex-flow: row wrap;
+  align-items: flex-start;
   align-content: flex-start;
   justify-content: center;
-  flex-basis: 45%;
   flex-grow: 1;
-  margin: 1rem;
 }
 
+/*###################*/
+/*# INVITES SECTION
+*/
+
+.invites {
+  flex-basis: 10%;
+}
+
+/*###################*/
+/*# GAMES SECTION
+*/
+
 .games {
+  flex-basis: 30%;
   justify-content: center;
 }
 
@@ -230,58 +320,23 @@ input[type=submit]:hover {
   transition: background 0s;
 }
 
-.roster {
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: flex-start;
+/*#################*/
+/*# STATS SECTION
+*/
+
+.stats {
+  flex-basis: 20%;
 }
 
-.roster ul {
-  display: flex;
-  flex-flow: column nowrap;
-  list-style: none;
-  width: 100%;
-}
-
-.roster li span{
-  padding: .5rem .75rem;
-}
-
-.roster li a, .roster_legend {
-  background: hsl(191, 33%, 90%);
-  border-radius: .75rem;
-  margin: 1rem;
-  font-size: 1.25rem;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  transition: background .5s;
-}
-
-.roster li a:hover {
-  cursor: pointer;
-  background: hsl(191, 16%, 100%);
-  transition: background 0s;
-}
-
-.roster_legend {
+.stats > h3 {
   font-size: 1.5rem;
+  margin-top: 1rem;
 }
 
-form.roster {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: .5rem;
+.legend span {
+  font-size: 1.25rem;
 }
 
-form.roster span {
-  margin: 1rem;
-}
 
-form.roster input {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
+
+
