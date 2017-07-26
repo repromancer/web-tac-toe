@@ -88,8 +88,11 @@ class Game < ActiveRecord::Base
           if vs_computer?
             winning_play_token == '1' ? self.loser = player_2 : self.winner = player_2
           else
-            self.winner = winning_play_token == '1' ? player_1 : player_2
-            self.loser = winning_play_token == '1' ? player_2 : player_1
+            winning_player = winning_play_token == '1' ? player_1 : player_2
+            losing_player = winning_play_token == '1' ? player_2 : player_1
+
+            self.winner = winning_player
+            self.loser = losing_player
           end
         end
       end
