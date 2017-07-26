@@ -2,17 +2,17 @@
 
 <div class="invites">
   <h2>Invites</h2>
+
   <% if @user.received_invites.any? %>
-    <form method="post" action="/games">
-      <ul>
+    <form method="post" action="/games" id="accept_invite"></form>
+    <ul class="roster">
       <% @user.received_invites.each do |invite| %>
-        <li>
+      <li class="bar">
           <span><%= invite.sender.username %></span>
-          <button type="submit" name="invite_id" value="<%=invite.id%>">Play!</button>
+        <button form="accept_invite" type="submit" name="invite_id" value="<%=invite.id%>">Play!</button>
         </li>
       <% end %>
       </ul>
-    </form>
   <% end %>
 
   <% if @user.sent_invites.any? %>
