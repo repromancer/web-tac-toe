@@ -6,26 +6,25 @@
   <% if @user.received_invites.any? %>
     <form method="post" action="/games" id="accept_invite"></form>
     <ul class="roster">
-      <% @user.received_invites.each do |invite| %>
+    <% @user.received_invites.each do |invite| %>
       <li class="bar">
-          <span><%= invite.sender.username %></span>
+        <span><%= invite.sender.username %></span>
         <button form="accept_invite" type="submit" name="invite_id" value="<%=invite.id%>">Play!</button>
-        </li>
-      <% end %>
-      </ul>
+      </li>
+    <% end %>
+    </ul>
   <% end %>
 
   <% if @user.sent_invites.any? %>
-    <div>
-      <ul>
-      <% @user.sent_invites.each do |invite| %>
-        <li>
-          <span>Waiting on <%= invite.receiver.username %></span>
-        </li>
-      <% end %>
-      </ul>
-    </div>
+    <ul class="roster">
+    <% @user.sent_invites.each do |invite| %>
+      <li class="bar">
+        <span>Waiting on <%= invite.receiver.username %></span>
+      </li>
+    <% end %>
+    </ul>
   <% end %>
+
 </div>
 
 <div class="games">
@@ -61,24 +60,30 @@
 <div class="stats">
   <h2>Game History</h2>
   <h3>Play/Loss Ratio: <%= @user.play_loss_ratio %></h3>
-  <div class="roster">
-    <ul>
-      <li class="roster_legend">
-        <span>Opponent</span>
-        <span>/</span>
-        <span>Results</span>
+
+  <ul class="roster">
+    <li class="legend bar">
+      <span>Opponent</span>
+      <span>/</span>
+      <span>Results</span>
+    </li>
+
+    <li class="bar">
+      <span>Computer</span>
+      <span>Wins: <%= @user.wins_vs_computer %> / Losses: <%= @user.losses_vs_computer %></span>
+    </li>
+
+    <% @user.opponents.each do |user| %>
+      <li>
+        <a class="bar" href="/users/<%= user.slug %>">
+
+          <span><%= user.username %></span>
+
+          <span>Wins: <%= @user.wins_against(user) %> / Losses: <%= @user.losses_against(user) %></span>
+
+        </a>
       </li>
-      <% @user.opponents.each do |user| %>
-        <li>
-          <a href="/users/<%= user.slug %>">
+    <% end %>
+  </ul>
 
-            <span><%= user.username %></span>
-
-            <span>Wins: <%= @user.wins_against(user) %> / Losses: <%= @user.losses_against(user) %></span>
-
-          </a>
-        </li>
-      <% end %>
-    </ul>
-  </div>
 </div>

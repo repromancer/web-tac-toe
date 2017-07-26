@@ -19,71 +19,69 @@
 
   <body>
 
+    <div class="page_grid">
 
+      <div class="navigation">
 
-    <div class="navigation">
+        <%# on signup page, display only signup form and flash messages %>
+        <% unless request.path_info == "/signup" %>
 
-      <%# on signup page, display only signup form and flash messages %>
-      <% unless request.path_info == "/signup" %>
+          <% if logged_in? %>
+            <%# current user name %>
+            <div class="bar">
+              <span>Logged in as <%=current_user.username%></span>
+            </div>
 
-        <% if logged_in? %>
-          <%# current user name %>
-          <div class="title bar">
-            <span>Logged in as <%=current_user.username%></span>
+            <%# new game button %>
+            <form class="bar" method="get" action="/games/new">
+              <input type="submit" value="New Game">
+            </form>
+
+            <%# current user profile button %>
+            <form class="bar" method="get" action="/users/<%=current_user.slug%>">
+              <input type="submit" value="Your Profile">
+            </form>
+
+            <%# log out button %>
+            <form class="bar" method="get" action="/logout">
+              <input type="submit" value="Log Out">
+            </form>
+
+          <% else %>
+
+            <%# website name %>
+            <div class="bar">
+              <span>Welcome to Web-Tac-Toe!</span>
+            </div>
+
+            <%# login/signup %>
+            <form class="bar" method="post" action="/login">
+              <input type="text" name="username" placeholder="username">
+              <input type="password" name="password" placeholder="password">
+              <input type="submit" value="Log In">
+            </form>
+            <form class="bar" method="get" action="/signup">
+              <input type="submit" value="Sign Up">
+            </form>
+
+          <% end %>
+
+        <% end %><%# end signup page exclusion %>
+
+        <% if flash.has?(:message) %>
+          <div class="message bar">
+            <span><%= flash[:message] %></span>
           </div>
-
-          <%# new game button %>
-
-          <form class="bar" method="get" action="/games/new">
-            <input type="submit" value="New Game">
-          </form>
-
-          <%# current user profile button %>
-
-          <form class="bar" method="get" action="/users/<%=current_user.slug%>">
-            <input type="submit" value="Your Profile">
-          </form>
-
-          <%# log out button %>
-
-          <form class="bar" method="get" action="/logout">
-            <input type="submit" value="Log Out">
-          </form>
-
-        <% else %>
-
-          <%# website name %>
-          <div class="title bar">
-            <span>Welcome to Web-Tac-Toe!</span>
-          </div>
-
-          <%# login/signup %>
-
-          <form class="bar" method="post" action="/login">
-            <input type="text" name="username" placeholder="username">
-            <input type="password" name="password" placeholder="password">
-            <input type="submit" value="Log In">
-          </form>
-          <form class="bar" method="get" action="/signup">
-            <input type="submit" value="Sign Up">
-          </form>
-
         <% end %>
 
-      <% end %> <%# end signup page exclusion %>
-
-      <% if flash.has?(:message) %>
-        <div class="flash_message bar">
-          <span><%= flash[:message] %></span>
-        </div>
-      <% end %>
-
-    </div>
+      </div>
 
 
 
-    <div class="content">
-      <%= yield %>
+      <div class="content">
+        <%= yield %>
+      </div>
+
     </div>
 
 
