@@ -48,4 +48,12 @@ class User < ActiveRecord::Base
     user.games.select{|game| game.loser == self}.size
   end
 
+  def wins_vs_computer
+    games.select{|game| game.won? && game.loser.nil?}.size
+  end
+
+  def losses_vs_computer
+    games.select{|game| game.won? && game.winner.nil?}.size
+  end
+
 end
