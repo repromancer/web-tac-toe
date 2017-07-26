@@ -20,4 +20,16 @@ class InvitesController < ApplicationController
 
     redirect "/users/#{current_user.slug}"
   end
+
+  patch '/invites' do
+    Invite.find(params[:invite_id]).tap do |invite|
+      if invite.receiver == current_user
+        invite.ignored = true
+        invite.save
+      end
+    end
+
+    redirect "/users/#{current_user.slug}"
+  end
+
 end
