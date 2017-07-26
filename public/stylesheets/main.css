@@ -178,6 +178,8 @@ form.roster {
   grid-template-columns: 1fr;
   grid-gap: 1rem;
   width: fit-content;
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
 }
 
 
@@ -227,6 +229,7 @@ form.roster {
   justify-content: center;
   align-content: center;
   width: 100%;
+  height: 100%;
 }
 
 .game_status, .game_board, .game_info {
