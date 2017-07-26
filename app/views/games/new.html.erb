@@ -1,19 +1,24 @@
 <div class="wrapper">
 
-  <%# <div class="bar"> %>
-    <form class="roster bar" method="post">
+  <form class="roster bar" method="post">
 
-      <input type="submit" value="Play Single-Player Game"
-        formaction="/games/singleplayer">
+    <input type="submit" value="Play Single-Player Game"
+      formaction="/games/singleplayer">
 
-      <span>Or challenge another player!</span>
+    <span>Or challenge another player!</span>
 
+
+    <% if @users.detect{|user| ! current_user.already_invited?(user) } %>
       <% @users.each do |user| %>
-        <button type="submit" formaction="/invites"
-        name="user_id" value="<%= user.id %>"><%= user.username %></button>
+        <% unless current_user.already_invited?(user) %>
+          <button type="submit" formaction="/invites"
+          name="user_id" value="<%= user.id %>"><%= user.username %></button>
+        <% end %>
       <% end %>
+    <% else %>
+      <span>...or not? Looks like there's nobody left to invite!</span>
+    <% end %>
 
-    </form>
-  <%# </div> %>
+  </form>
 
 </div>
