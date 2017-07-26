@@ -1,13 +1,18 @@
 class InvitesController < ApplicationController
 
   post '/invites' do
-    Invite.new.tap do |invite|
-      invite.sender = current_user
-      invite.receiver = User.find(params[:user_id])
+    invited_user = User.find(params[:user_id])
 
-      invite.save
+    if current_user.already_invited?(invited_user)
+      flash[:message] = "Whoops! Looks like you already have an open invite with that user."
+      redirect "/users/#{current_user.slug}"
+    else
+      Invite.new.tap do |invite|
+        invite.sender = current_user
+        invite.receiver = invited_user
+        invite.save
+      end
     end
-
     redirect "/users/#{current_user.slug}"
   end
 
