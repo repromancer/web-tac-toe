@@ -16,10 +16,15 @@
   <% end %>
 
   <% if @user.sent_invites.any? %>
+    <form method="post" action="/invites" id="withdraw_invite">
+      <input type="hidden" id="hidden" name="_method" value="delete">
+    </form>
+
     <ul class="roster">
     <% @user.sent_invites.each do |invite| %>
       <li class="bar">
         <span>Waiting on <%= invite.receiver.username %></span>
+        <button form="withdraw_invite" type="submit" name="invite_id" value="<%=invite.id%>">Withdraw</button>
       </li>
     <% end %>
     </ul>
