@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
     foreign_key: :sender_id, inverse_of: :sender
 
 
-  validates :username, presence: true, uniqueness: true, length: { minimum: 4, maximum: 32 }
+  validates :username, presence: true, uniqueness: { case_sensitive: false, message: 'choice is already taken. <br> (Note: Usernames are not case sensitive.)'}, length: { minimum: 4, maximum: 32 }
 
   has_secure_password
 
