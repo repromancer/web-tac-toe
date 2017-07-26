@@ -31,7 +31,9 @@ class User < ActiveRecord::Base
 
 
   def play_loss_ratio
-    (games.size.to_f / games.select{|game| game.loser == self}.size).round(1)
+    completed_games = games.select(&:complete?).size.to_f
+    lost_games = games.select{|game| game.loser == self}.size
+    (completed_games / lost_games).round(1)
   end
 
   def opponents
