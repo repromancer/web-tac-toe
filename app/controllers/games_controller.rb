@@ -2,14 +2,15 @@ class GamesController < ApplicationController
 
   helpers ComputerPlayerLogic
 
+
   get "/games/new" do
-    @users = User.all.reject do |user|
-      user == current_user
-    end.sort_by do |user|
-      user.username
+
+    @available_users = User.order(:username).select do |user|
+      current_user.can_invite?(user)
     end
 
     erb :"/games/new.html"
+
   end
 
   post "/games" do
