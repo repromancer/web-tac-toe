@@ -34,8 +34,11 @@ class InvitesController < ApplicationController
 
   end
 
-  patch '/invites' do
-    Invite.find(params[:invite_id]).tap do |invite|
+
+
+  patch '/invites/:id' do
+
+    Invite.find(params[:id]).tap do |invite|
       if invite.receiver == current_user
         invite.ignored = true
         invite.save
@@ -43,6 +46,7 @@ class InvitesController < ApplicationController
     end
 
     redirect "/users/#{current_user.slug}"
+
   end
 
 end
