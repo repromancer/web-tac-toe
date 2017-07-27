@@ -45,6 +45,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def already_playing?(user)
+    games.reject(&:complete?).detect do |game|
+      game.players.include?(user)
+    end
+    end
+
+  def can_invite?(user)
+    !( already_invited?(user) || already_playing?(user) || user == self )
+  end
+
   def games
     @games ||= games_as_player_1 + games_as_player_2
   end
