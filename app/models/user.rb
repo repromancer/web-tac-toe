@@ -39,6 +39,10 @@ class User < ActiveRecord::Base
     @invites ||= received_invites + sent_invites
   end
 
+  def visible_invites
+    @visible_invites ||= received_invites.select{|invite| ! invite.ignored?}
+  end
+
   def already_invited?(user)
     invites.detect do |invite|
       invite.sender == user || invite.receiver == user

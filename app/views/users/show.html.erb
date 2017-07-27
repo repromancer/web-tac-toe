@@ -5,11 +5,12 @@
   <div class="invites">
     <h2>Invites</h2>
 
-    <% if @user.received_invites.any? %>
+    <% if @user.visible_invites.any? %>
       <form method="post" action="/games" id="accept_invite"></form>
       <ul class="roster">
-      <% @user.received_invites.select{|invite| ! invite.ignored?}.each do |invite| %>
+      <% @user.visible_invites.each do |invite| %>
         <li class="bar">
+
           <span><%= invite.sender.username %></span>
           <button form="accept_invite" type="submit" name="invite_id" value="<%=invite.id%>">Play!</button>
 
