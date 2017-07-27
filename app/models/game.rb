@@ -80,7 +80,7 @@ class Game < ActiveRecord::Base
   end
 
   def place_token(index)
-    unless !(0..8).include?(index) || cell_taken?(index)
+    unless complete? || !(0..8).include?(index) || cell_taken?(index)
       board[index] = current_player_number
 
       if complete?
