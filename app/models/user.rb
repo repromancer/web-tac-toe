@@ -19,7 +19,15 @@ class User < ActiveRecord::Base
     foreign_key: :sender_id, inverse_of: :sender
 
 
-  validates :username, presence: true, uniqueness: { case_sensitive: false, message: 'choice is already taken. <br> (Note: Usernames are not case sensitive.)'}, length: { minimum: 4, maximum: 32 }
+
+  validates :username,
+    presence: true,
+    uniqueness: {
+      case_sensitive: false,
+      message: 'choice is already taken. <br> (Note: Usernames are not case sensitive.)'},
+    format: { with: /\A(?!.*computer).*/i,
+      message: "can't contain 'computer'." },
+    length: { minimum: 4, maximum: 32 }
 
   has_secure_password
 
@@ -31,6 +39,18 @@ class User < ActiveRecord::Base
 
   def slug
     @slug ||= username.downcase.split.join('-')
+  end
+
+
+
+  def games
+    @games ||= games_as_player_1 + games_as_player_2
+  end
+
+  def opponents
+    @opponents ||= games.collect do |game|
+      game.players.detect{|user| user != self}
+    end.uniq.compact
   end
 
 
@@ -59,9 +79,6 @@ class User < ActiveRecord::Base
     !( already_invited?(user) || already_playing?(user) || user == self )
   end
 
-  def games
-    @games ||= games_as_player_1 + games_as_player_2
-  end
 
 
   def play_loss_ratio
@@ -79,11 +96,7 @@ class User < ActiveRecord::Base
 
   end
 
-  def opponents
-    @opponents ||= games.collect do |game|
-      game.players.detect{|user| user != self}
-    end.uniq.compact
-  end
+
 
   def wins_against(user)
     user.games.select{|game| game.winner == self}.size
@@ -93,6 +106,8 @@ class User < ActiveRecord::Base
     user.games.select{|game| game.loser == self}.size
   end
 
+
+
   def wins_vs_computer
     games.select{|game| game.won? && game.loser.nil?}.size
   end
@@ -100,5 +115,7 @@ class User < ActiveRecord::Base
   def losses_vs_computer
     games.select{|game| game.won? && game.winner.nil?}.size
   end
+
+
 
 end
