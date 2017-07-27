@@ -3,7 +3,7 @@
   <form class="roster bar" method="post">
 
     <input type="submit" value="Play Single-Player Game"
-      formaction="/games/singleplayer">
+      formaction="/games">
 
     <span>Or challenge another player!</span>
 
@@ -11,8 +11,8 @@
 
     <% if @available_users.any? %>
       <% @available_users.each do |user| %>
-          <button type="submit" formaction="/invites"
-          name="user_id" value="<%= user.id %>"><%= user.username %></button>
+        <button type="submit" formaction="/invites"
+        name="user_id" value="<%= user.id %>"><%= user.username %></button>
       <% end %>
 
     <% else %>

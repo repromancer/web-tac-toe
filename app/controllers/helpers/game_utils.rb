@@ -1,5 +1,37 @@
 module GameUtils
 
+  def accepting_invite?(params)
+    !!params[:invite_id]
+  end
+
+  def start_two_player_game(params)
+    invite = Invite.find(params[:invite_id])
+
+    # ensure only recipient can accept invite
+    if invite.receiver == current_user
+      Game.create.tap do |game|
+        game.player_1 = invite.receiver
+        game.player_2 = invite.sender
+        game.save
+        invite.delete
+        redirect "/games/#{game.id}"
+      end
+
+    else
+      # if invalid request, redirect to user profile
+      redirect "/users/#{current_user.slug}"
+    end
+
+  end
+
+  def start_single_player_game
+    Game.create.tap do |game|
+      game.player_2 = current_user
+      game.save
+      redirect "/games/#{game.id}"
+    end
+  end
+
   def making_a_move?(params)
     params[:input].is_a?(Hash) &&
     params[:input].has_key?(:cell)
