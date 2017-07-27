@@ -39,13 +39,13 @@ class GamesController < ApplicationController
   end
 
   get "/games/:id" do
+
     @game = Game.find(params[:id])
 
-    if @game.vs_computer? && @game.current_player_token == '1'
-      @game.place_token(make_move(@game))
-    end
+    let_computer_play(@game) if @game.computers_turn?
 
     erb :"/games/show.html"
+
   end
 
   patch "/games/:id/forfeit" do
