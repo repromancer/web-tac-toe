@@ -5,7 +5,7 @@ Specs:
 > Self-explanatory.
 
 - [X] Use ActiveRecord for storing information in a database
-> All object information is
+> All object information is stored in and retrieved from a database using ActiveRecord associations and helper methods.
 
 - [X] Include more than one model class (list of model class names e.g. User, Post, Category)
 > Game, User, Invite
