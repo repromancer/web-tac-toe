@@ -13,13 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20170726055414) do
 
-  create_table "game_user_joins", force: :cascade do |t|
-    t.integer  "game_id"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "games", force: :cascade do |t|
     t.string   "board"
     t.integer  "player_1_id"
