@@ -1,8 +1,7 @@
 class Game < ActiveRecord::Base
 
-  has_many :game_user_joins
-  has_many :users, through: :game_user_joins
-  alias_attribute :players, :users
+  belongs_to :player_1, class_name: 'User'
+  belongs_to :player_2, class_name: 'User'
 
   belongs_to :winner, class_name: 'User'
   belongs_to :loser, class_name: 'User'
@@ -31,21 +30,14 @@ class Game < ActiveRecord::Base
     board.chars
   end
 
-
-
-
-
-
-  def player_1
-    @player_1 ||= players.first
+  def players
+    @players ||= [player_1, player_2]
   end
 
-  def player_2
-    @player_2 ||= players.last
-  end
+
 
   def vs_computer?
-    player_1 == player_2
+    player_1.nil?
   end
 
 

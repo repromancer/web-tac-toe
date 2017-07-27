@@ -1,7 +1,10 @@
 class User < ActiveRecord::Base
 
-  has_many :game_user_joins
-  has_many :games, through: :game_user_joins
+  has_many :games_as_player_1, class_name: 'Game',
+    foreign_key: :player_1_id, inverse_of: :player_1
+
+  has_many :games_as_player_2, class_name: 'Game',
+    foreign_key: :player_2_id, inverse_of: :player_2
 
   has_many :won_games, class_name: 'Game',
     foreign_key: :winner_id, inverse_of: :winner
@@ -20,6 +23,8 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
+
+
   def self.find_by_slug(slug)
     all.detect { |user| user.slug == slug }
   end
@@ -28,8 +33,10 @@ class User < ActiveRecord::Base
     @slug ||= username.downcase.split.join('-')
   end
 
+
+
   def invites
-    @invites ||= received_invites.dup + sent_invites.dup
+    @invites ||= received_invites + sent_invites
   end
 
   def already_invited?(user)
@@ -37,6 +44,11 @@ class User < ActiveRecord::Base
       invite.sender == user || invite.receiver == user
     end
   end
+
+  def games
+    @games ||= games_as_player_1 + games_as_player_2
+  end
+
 
   def play_loss_ratio
     won_or_tied_games = games.select do |game|
@@ -54,7 +66,7 @@ class User < ActiveRecord::Base
   end
 
   def opponents
-    games.collect do |game|
+    @opponents ||= games.collect do |game|
       game.players.detect{|user| user != self}
     end.uniq.compact
   end

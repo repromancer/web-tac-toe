@@ -16,8 +16,8 @@ class GamesController < ApplicationController
     invite = Invite.find(params[:invite_id])
     if invite.receiver == current_user
       newgame = Game.create.tap do |game|
-        game.players << invite.receiver
-        game.players << invite.sender
+        game.player_1 = invite.receiver
+        game.player_2 = invite.sender
         game.save
       end
       invite.delete
@@ -30,7 +30,7 @@ class GamesController < ApplicationController
 
   post "/games/singleplayer" do
     newgame = Game.create.tap do |game|
-      game.players << current_user
+      game.player_2 = current_user
       game.save
     end
 

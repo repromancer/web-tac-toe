@@ -22,10 +22,12 @@ ActiveRecord::Schema.define(version: 20170726055414) do
 
   create_table "games", force: :cascade do |t|
     t.string   "board"
+    t.integer  "player_1_id"
+    t.integer  "player_2_id"
     t.integer  "winner_id"
     t.integer  "loser_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "invites", force: :cascade do |t|
