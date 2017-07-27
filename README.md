@@ -25,6 +25,7 @@ In a game against the computer, the page will automatically refresh when the com
 Displayed on a user's profile page is a grid of board previews linking to their ongoing games, along with their game performance history (number of games won and lost against previous opponents, and an overal win&tie/loss ratio).
 
 On a user's own profile page, they will also see a list of sent and received game invites, with the option to delete sent invites or ignore received invites (the sender will remain unaware).
+
 ---
 
 ## Installation
