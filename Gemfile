@@ -15,7 +15,7 @@ gem 'rack-flash3', :require => 'rack-flash'
 gem 'sysrandom'
 
 group :development do
-  ruby '2.4'
+  ruby '~> 2.4'
 end
 
 group :test do
