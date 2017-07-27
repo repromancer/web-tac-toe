@@ -10,7 +10,7 @@ module AuthenticationUtils
 
   def login(params)
 
-    user = User.find_by(username: params[:username])
+    user = User.where('lower(username) = ?', params[:username].downcase).first
 
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
