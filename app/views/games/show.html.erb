@@ -39,13 +39,16 @@
         <%### attach forfeit button to board form %>
         <div class="bar">
           <button form="game_input" type="submit"
-          formaction="/games/<%= @game.id %>/forfeit">Forfeit Game</button>
+          name="input" value="forfeit"
+          formaction="/games/<%= @game.id %>">Forfeit Game</button>
         </div>
       <% elsif @game.players.include?(current_user) %>
         <%### else place it in its own form %>
-        <form  class="bar" method="post" action="/games/<%= @game.id %>/forfeit">
+        <form  class="bar" method="post" action="/games/<%= @game.id %>">
           <input type="hidden" id="hidden" name="_method" value="patch">
-          <input type="submit" value="Forfeit Game">
+
+          <button type="submit" name="input" value="forfeit"
+          formaction="/games/<%= @game.id %>">Forfeit Game</button>
         </form>
       <% end %>
     <% end %>
@@ -63,15 +66,16 @@
     <%############################################## %>
     <%### wrap board in form tags for current player %>
     <% if @game.current_player == current_user %>
-        <form id="game_input" method="post">
-          <input type="hidden" id="hidden" name="_method" value="patch">
-      <% end %>
+      <form id="game_input" method="post">
+        <input type="hidden" id="hidden" name="_method" value="patch">
+    <% end %>
     <%### %>
     <%### %>
 
     <div class="board"><%# BEGIN BOARD %>
 
       <% @game.cells.each_with_index do |cell, cell_index| %>
+
         <% if cell == "1" %>
           <div class="cell">
             <img src="/images/x.svg">
@@ -89,9 +93,9 @@
             <%###################################################### %>
             <%### display interactive empty cells for current player %>
             <% if @game.current_player == current_user %>
-                <input type="image"
-                  src="/images/<%= @game.current_player_token == '1' ? 'x' : 'o' %>.svg"
-                  formaction="/games/<%=@game.id%>/<%=cell_index%>">
+              <button class="<%= @game.current_token %>_token"
+                type="submit" name="input[cell]" value="<%= cell_index %>"
+                formaction="/games/<%=@game.id%>"></button>
             <% end %>
             <%### %>
 
@@ -107,7 +111,7 @@
 
     <%### %>
     <% if @game.current_player == current_user %>
-        </form>
+      </form>
     <% end %>
     <%### wrap board in form tags for current player %>
     <%############################################## %>
