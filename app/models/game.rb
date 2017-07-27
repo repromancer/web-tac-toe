@@ -56,7 +56,7 @@ class Game < ActiveRecord::Base
     turn_count.even? ? player_1 : player_2
   end
 
-  def current_player_token
+  def current_player_number
     turn_count.even? ? '1' : '2'
   end
 
@@ -73,7 +73,7 @@ class Game < ActiveRecord::Base
 
   def place_token(index)
     unless !(0..8).include?(index) || cell_taken?(index)
-      board[index] = current_player_token
+      board[index] = current_player_number
 
       if complete?
         if won?
