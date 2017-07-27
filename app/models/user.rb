@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
     games.reject(&:complete?).detect do |game|
       game.players.include?(user)
     end
-    end
+  end
 
   def can_invite?(user)
     !( already_invited?(user) || already_playing?(user) || user == self )
