@@ -120,6 +120,10 @@ module ComputerPlayerLogic
 
   end
 
+  def let_computer_play(game)
+    game.place_token(make_move(game))
+  end
+
 
 
 end
