@@ -63,11 +63,9 @@
     <%############################################## %>
     <%### wrap board in form tags for current player %>
     <% if @game.current_player == current_user %>
-      <% unless @game.vs_computer? && @game.current_player_token == '1' %>
         <form id="game_input" method="post">
           <input type="hidden" id="hidden" name="_method" value="patch">
       <% end %>
-    <% end %>
     <%### %>
     <%### %>
 
@@ -91,11 +89,9 @@
             <%###################################################### %>
             <%### display interactive empty cells for current player %>
             <% if @game.current_player == current_user %>
-              <% unless @game.vs_computer? && @game.current_player_token == '1' %>
                 <input type="image"
                   src="/images/<%= @game.current_player_token == '1' ? 'x' : 'o' %>.svg"
                   formaction="/games/<%=@game.id%>/<%=cell_index%>">
-              <% end %>
             <% end %>
             <%### %>
 
@@ -111,9 +107,7 @@
 
     <%### %>
     <% if @game.current_player == current_user %>
-      <% unless @game.vs_computer? && @game.current_player_token == '1' %>
         </form>
-      <% end %>
     <% end %>
     <%### wrap board in form tags for current player %>
     <%############################################## %>
