@@ -240,6 +240,7 @@ form.roster {
 
 
 .wrapper {
+  margin: 0;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
