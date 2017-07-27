@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
 
-  helpers ComputerPlayerLogic
+  helpers ComputerPlayerLogic, GameUtils
+
 
 
   get "/games/new" do
