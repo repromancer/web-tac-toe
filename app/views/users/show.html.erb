@@ -12,13 +12,18 @@
         <li class="bar">
 
           <span><%= invite.sender.username %></span>
-          <button form="accept_invite" type="submit" name="invite_id" value="<%=invite.id%>">Play!</button>
+
+          <div class="button_container">
+
+            <button form="accept_invite" type="submit" name="invite_id" value="<%=invite.id%>">Play!</button>
 
             <form method="post" action="/invites/<%=invite.id%>" id="ignore_invite">
-            <input type="hidden" id="hidden" name="_method" value="patch">
-          </form>
+              <input type="hidden" id="hidden" name="_method" value="patch">
+            </form>
 
             <button form="ignore_invite" type="submit">Ignore</button>
+
+          </div>
 
         </li>
       <% end %>

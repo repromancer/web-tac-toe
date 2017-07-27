@@ -208,20 +208,36 @@ form.roster {
   border-radius: 1.5vh;
 }
 
-.cell > img, .cell > input {
+.cell > img, .cell > button {
   height: 66%;
   width: 66%;
 }
 
-.cell > input {
+.cell > button {
+  background-color: transparent;
+  background-position: center;
+  background-size: contain;
+  border: none;
   border-radius: .5rem;
   transition: .5s;
   opacity: 0;
 }
 
-.cell > input:hover {
+.cell > button:hover {
+  background-color: transparent;
+  background-position: center;
+  background-size: contain;
   opacity: .33;
 }
+
+.cell > button.x_token {
+  background-image: url(/images/x.svg);
+}
+
+.cell > button.o_token {
+  background-image: url(/images/o.svg);
+}
+
 
 .wrapper {
   display: flex;
@@ -293,6 +309,14 @@ form.roster {
   flex-basis: 10%;
 }
 
+.button_container {
+  display: flex;
+}
+
+.button_container button:first-child {
+  margin-right: .5rem;
+}
+
 /*###################*/
 /*# GAMES SECTION
 */
@@ -304,10 +328,12 @@ form.roster {
 
 .grid {
   display: grid;
-  width: fit-content;
-  grid-template-columns: repeat(3, 1fr);
+  min-width: 66vh;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(20.6vh, 1fr));
   grid-gap: 1rem;
-  align-content: center;
+  align-items: center;
+  justify-items: center;
   margin: 1rem;
 }
 
@@ -339,7 +365,3 @@ form.roster {
 .legend span {
   font-size: 1.25rem;
 }
-
-
-
-
