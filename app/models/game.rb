@@ -60,6 +60,14 @@ class Game < ActiveRecord::Base
     turn_count.even? ? '1' : '2'
   end
 
+  def computers_turn?
+    current_player.nil?
+  end
+
+  def current_token
+    turn_count.even? ? 'x' : 'o'
+  end
+
   def winning_play_token
     board[won?.first]
   end
